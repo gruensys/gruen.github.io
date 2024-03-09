@@ -9,7 +9,7 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif; /* Use Roboto font family */
             background-color: #222; /* Changed background color to even darker gray */
             color: #fff;
         }
@@ -86,23 +86,33 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        
+        footer {
+            background-color: #34495e;
+            padding: 10px 20px;
+            text-align: center;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Gruen</h1>
+        <h1><i class="fas fa-leaf"></i> Gruen</h1>
     </header>
     <nav>
         <ul>
-            <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
+            <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
             <li class="dropdown">
-                <a href="#"><i class="fas fa-info-circle"></i>About</a>
+                <a href="#"><i class="fas fa-info-circle"></i> About</a>
                 <div class="dropdown-content">
-                    <p>About Me: I'm Gruen A Foss, Computer and Linux enthusiast</p>
+                    <p><i class="fas fa-user"></i> About Me: I'm Gruen A Foss, Computer and Linux enthusiast</p>
                 </div>
             </li>
             <li class="dropdown">
-                <a href="#"><i class="fas fa-envelope"></i>Contact</a>
+                <a href="#"><i class="fas fa-envelope"></i> Contact</a>
                 <div class="dropdown-content">
                     <p onclick="copyToClipboard('gruen_b')"><i class="fab fa-discord"></i> Discord: gruen_b</p>
                     <p><a href="mailto:your-email@example.com"><i class="fas fa-envelope"></i> Email</a></p>
