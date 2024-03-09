@@ -20,6 +20,7 @@
             color: #fff;
             text-align: center;
             transition: background-color 0.3s ease;
+            border-bottom: none; /* Removed stripes at the top */
         }
         
         nav ul {
@@ -79,7 +80,7 @@
         footer {
             background-color: #333;
             padding: 10px 20px;
-            text-align: center;
+            text-align: right; /* Align version number to the right */
             color: #fff;
             position: fixed;
             bottom: 0;
@@ -96,31 +97,6 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        /* GitHub Button */
-        .github-btn {
-            color: #fff;
-            text-decoration: none;
-            font-size: 20px;
-            transition: color 0.3s ease;
-        }
-
-        .github-btn:hover {
-            color: #eee;
-        }
-
-        /* Version Text */
-        .version-text {
-            color: #fff;
-            font-size: 16px;
-            transition: color 0.3s ease;
-        }
-
-        /* Version Icon */
-        .version-icon {
-            font-size: 16px;
-            margin-right: 5px;
         }
     </style>
 </head>
@@ -141,7 +117,8 @@
                 <a href="#"><i class="fas fa-envelope"></i> Contact</a>
                 <div class="dropdown-content">
                     <p onclick="copyToClipboard('gruen_b')"><i class="fab fa-discord"></i> Discord</p>
-                    <p onclick="window.location='mailto: finnjanhofmann@protonmail.com'"><i class="fas fa-envelope"></i> Email</p>
+                    <p```
+<p onclick="window.location='mailto: finnjanhofmann@protonmail.com'"><i class="fas fa-envelope"></i> Email</p>
                 </div>
             </li>
             <li>
@@ -154,7 +131,8 @@
         <p>There is nothing to see here yet.</p>
     </section>
     <footer>
-        &copy; 2024 Gruen. All rights reserved. <i class="fas fa-code version-icon"></i> <span class="version-text">Version 1.0</span>
+        <button class="mode-btn"><i class="fas fa-lightbulb"></i></button> <!-- Dark/Light Mode Button -->
+        <span class="version-text">Version 1.0 <i class="fas fa-code version-icon"></i></span> <!-- Version Number -->
     </footer>
 
     <script>
@@ -178,3 +156,4 @@
     </script>
 </body>
 </html>
+
