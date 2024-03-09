@@ -108,6 +108,43 @@
                 transform: translateY(0);
             }
         }
+
+        /* Animated Alert */
+        .alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            animation: fadeInAlert 0.5s ease forwards, fadeOutAlert 1.5s ease forwards 2s;
+            opacity: 0;
+            z-index: 999;
+            display: none;
+        }
+
+        @keyframes fadeInAlert {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOutAlert {
+            0% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -127,7 +164,7 @@
                 <a href="#"><i class="fas fa-envelope"></i> Contact</a>
                 <div class="dropdown-content">
                     <p onclick="copyToClipboard('gruen_b')"><i class="fab fa-discord"></i> Discord</p>
-                    <p><a href="mailto:your-email@example.com"><i class="fas fa-envelope"></i> Email</a></p>
+                    <p onclick="copyToClipboard('your-email@example.com')"><i class="fas fa-envelope"></i> Email</p>
                 </div>
             </li>
         </ul>
@@ -140,6 +177,9 @@
         &copy; 2024 Gruen. All rights reserved.
     </footer>
 
+    <!-- Animated Alert -->
+    <div class="alert" id="alert">Copied to clipboard!</div>
+
     <script>
         function copyToClipboard(text) {
             var textField = document.createElement('textarea');
@@ -148,7 +188,15 @@
             textField.select();
             document.execCommand('copy');
             textField.remove();
-            alert('Copied to clipboard: ' + text);
+            showAlert();
+        }
+
+        function showAlert() {
+            var alertBox = document.getElementById('alert');
+            alertBox.style.display = 'block';
+            setTimeout(function() {
+                alertBox.style.display = 'none';
+            }, 2000); // Adjust the duration of the alert
         }
     </script>
 </body>
