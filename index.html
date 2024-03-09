@@ -9,23 +9,15 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Roboto', sans-serif; /* Use Roboto font family */
-            background-color: #222; /* Changed background color to even darker gray */
+            font-family: 'Roboto', sans-serif;
+            background-color: #222;
             color: #fff;
             transition: background-color 0.3s ease;
         }
         
-        header {
+        header, nav {
             background-color: #2ecc71;
-            padding: 20px;
-            text-align: center;
             color: #fff;
-            transition: background-color 0.3s ease;
-        }
-        
-        nav {
-            background-color: #27ae60;
-            padding: 10px;
             text-align: center;
             transition: background-color 0.3s ease;
         }
@@ -50,10 +42,6 @@
             transition: color 0.3s ease;
         }
         
-        nav ul li a i {
-            margin-right: 5px;
-        }
-        
         .dropdown {
             position: relative;
             display: inline-block;
@@ -62,7 +50,7 @@
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #34495e; /* Changed background color to a darker shade */
+            background-color: #34495e;
             min-width: 160px;
             z-index: 1;
             border-radius: 5px;
@@ -74,13 +62,13 @@
         .dropdown-content p {
             color: #fff;
             padding: 10px 16px;
-            margin: 0; /* Remove default margin */
+            margin: 0;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         .dropdown-content p:hover {
-            background-color: #2c3e50; /* Changed hover background color */
+            background-color: #2c3e50;
         }
 
         .dropdown:hover .dropdown-content {
@@ -109,43 +97,6 @@
             }
         }
 
-        /* Animated Alert */
-        .alert {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            animation: fadeInAlert 0.5s ease forwards, fadeOutAlert 1.5s ease forwards 2s;
-            opacity: 0;
-            z-index: 999;
-            display: none;
-        }
-
-        @keyframes fadeInAlert {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeOutAlert {
-            0% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
         /* GitHub Button */
         .github-btn {
             position: fixed;
@@ -158,6 +109,7 @@
             font-size: 16px;
             text-decoration: none;
             transition: background-color 0.3s ease;
+            z-index: 999;
         }
 
         .github-btn:hover {
@@ -180,7 +132,7 @@
             width: 50px;
             height: auto;
             transition: transform 0.3s ease;
-}
+        }
 
         .secret-btn img:hover {
             transform: rotate(360deg);
@@ -216,9 +168,6 @@
     <footer>
         &copy; 2024 Gruen. All rights reserved.
     </footer>
-
-    <!-- Animated Alert -->
-    <div class="alert" id="alert">Copied to clipboard!</div>
 
     <!-- GitHub Button -->
     <a href="https://github.com/gruensys" class="github-btn"><i class="fab fa-github"></i> GitHub</a>
