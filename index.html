@@ -48,19 +48,34 @@
             margin-right: 5px;
         }
         
-        section {
-            padding: 20px;
-            text-align: center;
+        .dropdown {
+            position: relative;
+            display: inline-block;
         }
-        
-        footer {
-            background-color: #2ecc71;
-            padding: 10px;
-            text-align: center;
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #27ae60;
+            min-width: 160px;
+            z-index: 1;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .dropdown-content a {
             color: #fff;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1e8449;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
         
         .discord {
@@ -69,41 +84,6 @@
             color: #fff;
             padding: 5px 10px;
             border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
-        }
-
-        .modal-content {
-            background-color: #333;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
             cursor: pointer;
         }
     </style>
@@ -115,51 +95,32 @@
     <nav>
         <ul>
             <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
-            <li><a href="#" onclick="showAbout()"><i class="fas fa-info-circle"></i>About</a></li>
-            <li><a href="#" onclick="showContactModal()"><i class="fas fa-envelope"></i>Contact</a></li>
+            <li class="dropdown">
+                <a href="#"><i class="fas fa-info-circle"></i>About</a>
+                <div class="dropdown-content">
+                    <p>About Me: I'm Gruen</p>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#"><i class="fas fa-envelope"></i>Contact</a>
+                <div class="dropdown-content">
+                    <p onclick="copyToClipboard('gruen_b')">Discord: gruen_b</p>
+                    <p onclick="sendEmail()">Email</p>
+                </div>
+            </li>
         </ul>
-        <div class="discord" onclick="copyToClipboard('gruen_b')">Discord: gruen_b</div>
     </nav>
     <section>
         <h2>Welcome to my website!</h2>
-        <p>There is nothing interesting to see here yet.</p>
+        <p>There is nothing to see here yet.</p>
     </section>
     <footer>
-        &copy; 2024 Gruen.
+        &copy; 2024 Gruen. All rights reserved.
     </footer>
 
-    <!-- Contact Modal -->
-    <div id="contactModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeContactModal()">&times;</span>
-            <p>How would you like to contact me?</p>
-            <button onclick="sendEmail()">Email</button>
-            <button onclick="contactDiscord()">Discord</button>
-        </div>
-    </div>
-
     <script>
-        function showAbout() {
-            alert("I'm Gruen, I'm a Linux, Computer and Foss enthusiast. This Website is just a simple Website I am working on
-");
-        }
-
-        function showContactModal() {
-            document.getElementById('contactModal').style.display = 'block';
-        }
-
-        function closeContactModal() {
-            document.getElementById('contactModal').style.display = 'none';
-        }
-
         function sendEmail() {
-            window.location.href = 'mailto: Finnjanhofmann.protonmail.com';
-            closeContactModal();
-        }
-
-        function contactDiscord() {
-            copyToClipboard('gruen_b');
-            closeContactModal();
+            window.prompt("Email copied to clipboard. Press Ctrl+V to paste it into your email client.", "your-email@example.com");
         }
 
         function copyToClipboard(text) {
