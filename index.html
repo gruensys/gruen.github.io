@@ -99,43 +99,14 @@
 
         /* GitHub Button */
         .github-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #333;
             color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
             text-decoration: none;
-            transition: background-color 0.3s ease;
-            z-index: 999;
+            font-size: 20px;
+            transition: color 0.3s ease;
         }
 
         .github-btn:hover {
-            background-color: #555;
-        }
-
-        /* Secret Button */
-        .secret-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            outline: none;
-            z-index: 999;
-        }
-
-        .secret-btn img {
-            width: 50px;
-            height: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .secret-btn img:hover {
-            transform: rotate(360deg);
+            color: #eee;
         }
     </style>
 </head>
@@ -159,6 +130,9 @@
                     <p onclick="window.location='mailto: finnjanhofmann@protonmail.com'"><i class="fas fa-envelope"></i> Email</p>
                 </div>
             </li>
+            <li>
+                <a href="https://github.com/gruensys" class="github-btn"><i class="fab fa-github"></i> GitHub</a>
+            </li>
         </ul>
     </nav>
     <section>
@@ -168,14 +142,6 @@
     <footer>
         &copy; 2024 Gruen. All rights reserved.
     </footer>
-
-    <!-- GitHub Button -->
-    <a href="https://github.com/gruensys" class="github-btn"><i class="fab fa-github"></i> GitHub</a>
-
-    <!-- Secret Button -->
-    <button class="secret-btn" onclick="redirectToYouTube()">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/88/Chicken_Conqueror_Logo.png/220px-Chicken_Conqueror_Logo.png" alt="Secret Button">
-    </button>
 
     <script>
         function copyToClipboard(text) {
@@ -194,10 +160,6 @@
             setTimeout(function() {
                 alertBox.style.display = 'none';
             }, 2000); // Adjust the duration of the alert
-        }
-
-        function redirectToYouTube() {
-            window.location = 'https://youtu.be/dQw4w9WgXcQ?si=rgh494bBC3F303hR';
         }
     </script>
 </body>
