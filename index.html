@@ -85,14 +85,14 @@
         }
         
         footer {
-            background-color: #34495e;
-            color: #fff;
+            background-color: #333; /* Dark mode footer background */
+            color: #ddd; /* Dark mode footer text color */
             text-align: center;
             padding: 10px 20px;
             position: fixed;
             bottom: 0;
             width: 100%;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         @keyframes fadeIn {
@@ -105,19 +105,6 @@
                 transform: translateY(0);
             }
         }
-
-        /* GitHub Button */
-        .github-btn {
-            color: #fff;
-            text-decoration: none;
-            font-size: 20px;
-            transition: color 0.3s ease;
-        }
-
-        .github-btn:hover {
-            color: #eee;
-        }
-
 
         /* Dark Mode Button */
         .mode-btn {
@@ -138,11 +125,19 @@
         .mode-btn:hover {
             color: #eee;
         }
+
+        .contrast-btn {
+            cursor: pointer;
+        }
+
+        .contrast-btn:hover {
+            color: #ccc;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1><i class="fas fa-leaf"></i> Gruen</h1>
+        <h1 class="contrast-btn" onclick="toggleHighContrastMode()"><i class="fas fa-leaf"></i> Gruen</h1>
     </header>
     <nav>
         <ul>
@@ -163,12 +158,12 @@
         </ul>
     </nav>
     <section>
-    <h2>Welcome to my website!</h2>
-    <p>There is nothing to see here yet.</p>
-</section>
-<footer>
-    <p>Copyright © 2024 Gruen. All rights reserved.</p>
-</footer>
+        <h2>Welcome to my website!</h2>
+        <p>There is nothing to see here yet. press the leaf icon for contrast modes.</p>
+    </section>
+    <footer>
+        <p>Copyright © 2024 Gruen. All rights reserved.</p>
+    </footer>
 
     <button class="mode-btn" onclick="toggleDarkMode()"><i class="fas fa-sun"></i></button> <!-- Dark Mode Button -->
 
@@ -193,16 +188,62 @@
 
         function toggleDarkMode() {
             var body = document.body;
+            var modeButtonIcon = document.querySelector('.mode-btn i');
             if (body.classList.contains('dark-mode')) {
                 body.style.backgroundColor = '#fff'; // Light mode background color
                 body.style.color = '#333'; // Light mode text color
-                document.querySelector('.mode-btn i').className = 'fas fa-moon'; // Change icon to moon
+                document.querySelectorAll('.dropdown-content').forEach(function(dropdown) {
+                    dropdown.style.backgroundColor = '#fff'; // Light mode dropdown background color
+                    dropdown.querySelectorAll('p').forEach(function(p) {
+                        p.style.color = '#333'; // Light mode dropdown text color
+                    });
+                });
+                document.querySelector('footer').style.backgroundColor = '#ddd'; // Light mode footer background color
+                document.querySelector('footer').style.color = '#333'; // Light mode footer text color
+                modeButtonIcon.className = 'fas fa-moon'; // Change icon to moon
             } else {
                 body.style.backgroundColor = '#222'; // Dark mode background color
                 body.style.color = '#fff'; // Dark mode text color
-                document.querySelector('.mode-btn i').className = 'fas fa-sun'; // Change icon to sun
+                document.querySelectorAll('.dropdown-content').forEach(function(dropdown) {
+                    dropdown.style.backgroundColor = '#34495e'; // Dark mode dropdown background color
+                    dropdown.querySelectorAll('p').forEach(function(p) {
+                        p.style.color = '#fff'; // Dark mode dropdown text color
+                    });
+                });
+                document.querySelector('footer').style.backgroundColor = '#333'; // Dark mode footer background color
+                document.querySelector('footer').style.color = '#ddd'; // Dark mode footer text color
+                modeButtonIcon.className = 'fas fa-sun'; // Change icon to sun
             }
             body.classList.toggle('dark-mode');
+        }
+
+        function toggleHighContrastMode() {
+            var body = document.body;
+            var modeButtonIcon = document.querySelector('.mode-btn i');
+            if (body.classList.contains('high-contrast')) {
+                body.style.backgroundColor = '#222'; // Dark mode background color
+                body.style.color = '#0ff'; // Cyan text color
+                document.querySelectorAll('.dropdown-content').forEach(function(dropdown) {
+                    dropdown.style.backgroundColor = '#000'; // Black dropdown background color
+                    dropdown.querySelectorAll('p').forEach(function(p) {
+                        p.style.color = '#0ff'; // Cyan dropdown text color
+                    });
+                });
+                document.querySelector('footer').style.backgroundColor = '#00ffff'; // Cyan footer background color
+                modeButtonIcon.className = 'fas fa-sun'; // Change icon to sun
+            } else {
+                body.style.backgroundColor = '#000'; // Black background color
+                body.style.color = '#800080'; // Purple text color
+                document.querySelectorAll('.dropdown-content').forEach(function(dropdown) {
+                    dropdown.style.backgroundColor = '#800080'; // Purple dropdown background color
+                    dropdown.querySelectorAll('p').forEach(function(p) {
+                        p.style.color = '#00f'; // Blue dropdown text color
+                    });
+                });
+                document.querySelector('footer').style.backgroundColor = '#ffff00'; // Yellow footer background color
+                modeButtonIcon.className = 'fas fa-moon'; // Change icon to moon
+            }
+            body.classList.toggle('high-contrast');
         }
     </script>
 </body>
