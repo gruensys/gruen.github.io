@@ -105,24 +105,20 @@
                 <a href="#"><i class="fas fa-envelope"></i>Contact</a>
                 <div class="dropdown-content">
                     <p onclick="copyToClipboard('gruen_b')">Discord: gruen_b</p>
-                    <p onclick="sendEmail()">Email</p>
+                    <p><a href="mailto: finnjanhofmann@protonmail.com">Email</a></p>
                 </div>
             </li>
         </ul>
     </nav>
     <section>
         <h2>Welcome to my website!</h2>
-        <p>There is nothing to see here yet.</p>
+        <p>There is nothing crazy to see here yet.</p>
     </section>
     <footer>
         &copy; 2024 Gruen. All rights reserved.
     </footer>
 
     <script>
-        function sendEmail() {
-            window.prompt("Email copied to clipboard. Press Ctrl+V to paste it into your email client.", "your-email@example.com");
-        }
-
         function copyToClipboard(text) {
             var textField = document.createElement('textarea');
             textField.innerText = text;
