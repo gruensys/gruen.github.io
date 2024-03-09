@@ -108,6 +108,13 @@
         .github-btn:hover {
             color: #eee;
         }
+
+        /* Amplify Button */
+        .version-text {
+            color: #fff;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -143,6 +150,9 @@
         &copy; 2024 Gruen. All rights reserved.
     </footer>
 
+    <!-- Version Text -->
+    <div class="version-text">Version 1.0</div>
+
     <script>
         function copyToClipboard(text) {
             var textField = document.createElement('textarea');
@@ -160,6 +170,13 @@
             setTimeout(function() {
                 alertBox.style.display = 'none';
             }, 2000); // Adjust the duration of the alert
+        }
+
+        function amplifyVersion() {
+            var versionText = document.querySelector('.version-text');
+            var currentVersion = parseFloat(versionText.textContent.split(' ')[1]);
+            var nextVersion = currentVersion + 0.1;
+            versionText.textContent = "Version " + nextVersion.toFixed(1);
         }
     </script>
 </body>
