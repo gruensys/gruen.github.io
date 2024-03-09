@@ -10,30 +10,38 @@
             margin: 0;
             padding: 0;
             font-family: 'Roboto', sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            transition: background-color 0.3s ease;
+            background-color: #222; /* Dark mode background */
+            color: #fff;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
-        header, nav {
+        header {
             background-color: #2ecc71;
             color: #fff;
             text-align: center;
-            transition: background-color 0.3s ease;
-            border-bottom: none; /* Removed stripes at the top */
+            padding: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        nav {
+            background-color: #27ae60;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         nav ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         nav ul li {
             display: inline;
             margin: 0 10px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         nav ul li a {
@@ -51,14 +59,13 @@
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #3498db;
+            background-color: #34495e; /* Dark mode dropdown background */
             min-width: 160px;
             z-index: 1;
             border-radius: 5px;
             text-align: left;
             animation: fadeIn 0.3s ease;
             transition: background-color 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .dropdown-content p {
@@ -70,7 +77,7 @@
         }
 
         .dropdown-content p:hover {
-            background-color: #2980b9;
+            background-color: #2c3e50; /* Dark mode dropdown hover background */
         }
 
         .dropdown:hover .dropdown-content {
@@ -78,10 +85,10 @@
         }
         
         footer {
-            background-color: #333;
-            padding: 10px 20px;
-            text-align: right; /* Align version number to the right */
+            background-color: #34495e;
             color: #fff;
+            text-align: center;
+            padding: 10px 20px;
             position: fixed;
             bottom: 0;
             width: 100%;
@@ -97,6 +104,39 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        /* GitHub Button */
+        .github-btn {
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .github-btn:hover {
+            color: #eee;
+        }
+
+
+        /* Dark Mode Button */
+        .mode-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            color: #fff;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            padding: 5px;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .mode-btn:hover {
+            color: #eee;
         }
     </style>
 </head>
@@ -117,23 +157,20 @@
                 <a href="#"><i class="fas fa-envelope"></i> Contact</a>
                 <div class="dropdown-content">
                     <p onclick="copyToClipboard('gruen_b')"><i class="fab fa-discord"></i> Discord</p>
-                    <p```
-<p onclick="window.location='mailto: finnjanhofmann@protonmail.com'"><i class="fas fa-envelope"></i> Email</p>
+                    <p onclick="window.location='mailto: finnjanhofmann@protonmail.com'"><i class="fas fa-envelope"></i> Email</p>
                 </div>
-            </li>
-            <li>
-                <a href="https://github.com/gruensys" class="github-btn"><i class="fab fa-github"></i> GitHub</a>
             </li>
         </ul>
     </nav>
     <section>
-        <h2>Welcome to my website!</h2>
-        <p>There is nothing to see here yet.</p>
-    </section>
-    <footer>
-        <button class="mode-btn"><i class="fas fa-lightbulb"></i></button> <!-- Dark/Light Mode Button -->
-        <span class="version-text">Version 1.0 <i class="fas fa-code version-icon"></i></span> <!-- Version Number -->
-    </footer>
+    <h2>Welcome to my website!</h2>
+    <p>There is nothing to see here yet.</p>
+</section>
+<footer>
+    <p>Copyright © 2024 Gruen. All rights reserved.</p>
+</footer>
+
+    <button class="mode-btn" onclick="toggleDarkMode()"><i class="fas fa-sun"></i></button> <!-- Dark Mode Button -->
 
     <script>
         function copyToClipboard(text) {
@@ -153,7 +190,20 @@
                 alertBox.style.display = 'none';
             }, 2000); // Adjust the duration of the alert
         }
+
+        function toggleDarkMode() {
+            var body = document.body;
+            if (body.classList.contains('dark-mode')) {
+                body.style.backgroundColor = '#fff'; // Light mode background color
+                body.style.color = '#333'; // Light mode text color
+                document.querySelector('.mode-btn i').className = 'fas fa-moon'; // Change icon to moon
+            } else {
+                body.style.backgroundColor = '#222'; // Dark mode background color
+                body.style.color = '#fff'; // Dark mode text color
+                document.querySelector('.mode-btn i').className = 'fas fa-sun'; // Change icon to sun
+            }
+            body.classList.toggle('dark-mode');
+        }
     </script>
 </body>
 </html>
-
