@@ -1,2 +1,2 @@
 Just A website im working on 
-https://gruen.github.io/
+https://gruensys.github.io/
