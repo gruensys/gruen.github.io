@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #222; 
+            background-color: #222; /* Changed background color to even darker gray */
             color: #fff;
         }
         
@@ -62,6 +62,15 @@
             bottom: 0;
             width: 100%;
         }
+        
+        .discord {
+            display: inline-block;
+            background-color: #7289DA;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -71,16 +80,33 @@
     <nav>
         <ul>
             <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
-            <li><a href="#"><i class="fas fa-info-circle"></i>About</a></li>
-            <li><a href="mailto: finnjanhofmann@protonmail.com"><i class="fas fa-envelope"></i>Contact</a></li>
+            <li><a href="#" onclick="showAbout()"><i class="fas fa-info-circle"></i>About</a></li>
+            <li><a href="mailto:your-email@example.com"><i class="fas fa-envelope"></i>Contact</a></li>
         </ul>
+        <div class="discord" onclick="copyToClipboard('gruen_b')">Discord: gruen_b</div>
     </nav>
     <section>
-        <h2>About</h2>
-        <p>I'm Gruen, and this is my green-themed website!</p>
+        <h2>Welcome to my website!</h2>
+        <p>There is nothing to see here yet.</p>
     </section>
     <footer>
-        &copy; 2024 Green Website. All rights reserved.
+        &copy; 2024 Gruen. All rights reserved.
     </footer>
+
+    <script>
+        function showAbout() {
+            alert("I'm Gruen");
+        }
+
+        function copyToClipboard(text) {
+            var textField = document.createElement('textarea');
+            textField.innerText = text;
+            document.body.appendChild(textField);
+            textField.select();
+            document.execCommand('copy');
+            textField.remove();
+            alert('Copied to clipboard: ' + text);
+        }
+    </script>
 </body>
 </html>
