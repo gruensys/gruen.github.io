@@ -128,6 +128,9 @@
 
         .contrast-btn {
             cursor: pointer;
+            display: inline-block;
+            margin-right: 10px;
+            padding: 10px;
         }
 
         .contrast-btn:hover {
@@ -159,7 +162,7 @@
     </nav>
     <section>
         <h2>Welcome to my website!</h2>
-        <p>There is nothing to see here yet. press the leaf icon for contrast modes.</p>
+        <p>There is nothing to see here yet. Press the leaf icon for contrast modes.</p>
     </section>
     <footer>
         <p>Copyright © 2024 Gruen. All rights reserved.</p>
@@ -205,7 +208,7 @@
                 body.style.backgroundColor = '#222'; // Dark mode background color
                 body.style.color = '#fff'; // Dark mode text color
                 document.querySelectorAll('.dropdown-content').forEach(function(dropdown) {
-                    dropdown.style.backgroundColor = '#34495e'; // Dark mode dropdown background color
+                    dropdown.style.backgroundColor = '#444'; // Dark gray dropdown background color
                     dropdown.querySelectorAll('p').forEach(function(p) {
                         p.style.color = '#fff'; // Dark mode dropdown text color
                     });
@@ -224,7 +227,7 @@
                 body.style.backgroundColor = '#222'; // Dark mode background color
                 body.style.color = '#0ff'; // Cyan text color
                 document.querySelectorAll('.dropdown-content').forEach(function(dropdown) {
-                    dropdown.style.backgroundColor = '#000'; // Black dropdown background color
+                    dropdown.style.backgroundColor = '#444'; // Dark gray dropdown background color
                     dropdown.querySelectorAll('p').forEach(function(p) {
                         p.style.color = '#0ff'; // Cyan dropdown text color
                     });
@@ -235,9 +238,9 @@
                 body.style.backgroundColor = '#000'; // Black background color
                 body.style.color = '#800080'; // Purple text color
                 document.querySelectorAll('.dropdown-content').forEach(function(dropdown) {
-                    dropdown.style.backgroundColor = '#800080'; // Purple dropdown background color
+                    dropdown.style.backgroundColor = '#222222'; // Purple dropdown background color
                     dropdown.querySelectorAll('p').forEach(function(p) {
-                        p.style.color = '#00f'; // Blue dropdown text color
+                        p.style.color = ' 	#00FFFF'; // Blue dropdown text color
                     });
                 });
                 document.querySelector('footer').style.backgroundColor = '#ffff00'; // Yellow footer background color
