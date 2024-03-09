@@ -164,7 +164,8 @@
                 <a href="#"><i class="fas fa-envelope"></i> Contact</a>
                 <div class="dropdown-content">
                     <p onclick="copyToClipboard('gruen_b')"><i class="fab fa-discord"></i> Discord</p>
-                    <p onclick="copyToClipboard('Finnjanhofmann@protonmail.com')"><i class="fas fa-envelope"></i> Email</p>
+                    <ponclick="sendEmail()"
+                    ><i class="fas fa-envelope"></i> Email</p>
                 </div>
             </li>
         </ul>
@@ -197,6 +198,11 @@
             setTimeout(function() {
                 alertBox.style.display = 'none';
             }, 2000); // Adjust the duration of the alert
+        }
+
+        function sendEmail() {
+            var email = 'Finnjanhofmann@protonmail.com';
+            window.location = 'mailto:' + email;
         }
     </script>
 </body>
