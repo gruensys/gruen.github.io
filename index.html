@@ -147,4 +147,9 @@
             document.body.appendChild(textField);
             textField.select();
             document.execCommand('copy');
-            textField
+            textField.remove();
+            alert('Copied to clipboard: ' + text);
+        }
+    </script>
+</body>
+</html>
