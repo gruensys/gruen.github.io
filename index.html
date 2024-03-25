@@ -3,39 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gruen</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        body {margin: 0; padding: 0; font-family: 'Roboto', sans-serif; background-color: #222; color: #fff; transition: background-color 0.3s ease, color 0.3s ease;}
-        header {background-color: #2ecc71; color: #fff; text-align: center; padding: 20px; transition: background-color 0.3s ease, color 0.3s ease;}
-        nav {background-color: #27ae60; color: #fff; text-align: center; padding: 10px; transition: background-color 0.3s ease, color 0.3s ease;}
-        nav ul {list-style-type: none; margin: 0; padding: 0; transition: background-color 0.3s ease, color 0.3s ease;}
-        nav ul li {display: inline; margin: 0 10px; transition: background-color 0.3s ease, color 0.3s ease;}
-        nav ul li a {color: #fff; text-decoration: none; font-size: 20px; transition: color 0.3s ease;}
-        .dropdown {position: relative; display: inline-block;}
-        .dropdown-content {display: none; position: absolute; background-color: #34495e; min-width: 160px; z-index: 1; border-radius: 5px; text-align: left; animation: fadeIn 0.3s ease; transition: background-color 0.3s ease;}
-        .dropdown-content p {color: #fff; padding: 10px 16px; margin: 0; cursor: pointer; transition: background-color 0.3s ease;}
-        .dropdown-content p:hover {background-color: #2c3e50;}
-        .dropdown:hover .dropdown-content {display: block;}
-        footer {background-color: #333; color: #ddd; text-align: center; padding: 10px 20px; position: fixed; bottom: 0; width: 100%; transition: background-color 0.3s ease, color 0.3s ease;}
-        @keyframes fadeIn {from {opacity: 0; transform: translateY(-10px);} to {opacity: 1; transform: translateY(0);}}
-        .mode-btn {background-color: transparent; border: none; cursor: pointer; outline: none; color: #fff; font-size: 16px; transition: color 0.3s ease; padding: 5px; border-radius: 50%; position: absolute; top: 20px; left: 20px;}
-        .mode-btn:hover {color: #eee;}
-        .contrast-btn {cursor: pointer; display: inline-block; margin-right: 10px; padding: 10px;}
-        .contrast-btn:hover {color: #ccc;}
-    </style>
+    <title>Test Website with Background Music</title>
 </head>
 <body>
-    <header><h1 class="contrast-btn" onclick="toggleHighContrastMode()"><i class="fas fa-leaf"></i> Gruen</h1></header>
-    <nav><ul><li><a href="#"><i class="fas fa-home"></i> Home</a></li><li class="dropdown"><a href="#"><i class="fas fa-info-circle"></i> About</a><div class="dropdown-content"><p><i class="fas fa-user"></i> This is just a simple Website I'm working on</p></div></li><li class="dropdown"><a href="#"><i class="fas fa-envelope"></i> Contact</a><div class="dropdown-content"><p onclick="copyToClipboard('gruen_b')"><i class="fab fa-discord"></i> Discord</p><p onclick="window.location='mailto: gruensys@proton.me'"><i class="fas fa-envelope"></i> Email</p></div></li></ul></nav>
-    <section><h2>Welcome to my website!</h2><p>There is nothing to see here yet. Press the leaf icon for contrast modes.</p></section>
-    <footer><p>Copyright © 2024 Gruen. All rights reserved.</p></footer>
-    <button class="mode-btn" onclick="toggleDarkMode()"><i class="fas fa-sun"></i></button>
+    <audio id="background-music" autoplay loop>
+        <source src="./music.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <h1>Welcome to My Test Website!</h1>
+    <p>This is a simple test website with background music.</p>
+
     <script>
-        function copyToClipboard(text) {var textField = document.createElement('textarea');textField.innerText = text;document.body.appendChild(textField);textField.select();document.execCommand('copy');textField.remove();showAlert();}
-        function showAlert() {var alertBox = document.getElementById('alert');alertBox.style.display = 'block';setTimeout(function() {alertBox.style.display = 'none';}, 2000);}
-        function toggleDarkMode() {var body = document.body;var modeButtonIcon = document.querySelector('.mode-btn i');if (body.classList.contains('dark-mode')) {body.style.backgroundColor = '#fff';body.style.color = '#333';document.querySelectorAll('.dropdown-content').forEach(function(dropdown) {dropdown.style.backgroundColor = '#fff';dropdown.querySelectorAll('p').forEach(function(p) {p.style.color = '#333';});});document.querySelector('footer').style.backgroundColor = '#ddd';document.querySelector('footer').style.color = '#333';modeButtonIcon.className = 'fas fa-moon';} else {body.style.backgroundColor = '#222';body.style.color = '#fff';document.querySelectorAll('.dropdown-content').forEach(function(dropdown) {dropdown.style.backgroundColor = '#444';dropdown.querySelectorAll('p').forEach(function(p) {p.style.color = '#fff';});});document.querySelector('footer').style.backgroundColor = '#333';document.querySelector('footer').style.color = '#ddd';modeButtonIcon.className = 'fas fa-sun';}body.classList.toggle('dark-mode');}
-        function toggleHighContrastMode() {var body = document.body;var modeButtonIcon = document.querySelector('.mode-btn i');if (body.classList.contains('high-contrast')) {body.style.backgroundColor = '#222';body.style.color = '#0ff';document.querySelectorAll('.dropdown-content').forEach(function(dropdown) {dropdown.style.backgroundColor = '#444';dropdown.querySelectorAll('p').forEach(function(p) {p.style.color = '#0ff';});});document.querySelector('footer').style.backgroundColor = '#00ffff';modeButtonIcon.className = 'fas fa-sun';} else {body.style.backgroundColor = '#000';body.style.color = '#800080';document.querySelectorAll('.dropdown-content').forEach(function(dropdown) {dropdown.style.backgroundColor = '#222222';dropdown.querySelectorAll('p').forEach(function(p) {p.style.color = ' #00FFFF';});});document.querySelector('footer').style.backgroundColor = '#ffff00';modeButtonIcon.className = 'fas fa-moon';}body.classList.toggle('high-contrast');}
+        window.onload = function() {
+            var audio = document.getElementById('background-music');
+            audio.play();
+        };
     </script>
 </body>
 </html>
