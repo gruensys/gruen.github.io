@@ -1,24 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Website with Background Music</title>
+    <title>Music Player</title>
+    <link rel="stylesheet" href="player.css">
 </head>
 <body>
-    <audio id="background-music" autoplay loop>
-        <source src="./music.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
+    <audio src="./music.mp3" id="song"></audio>
 
-    <h1>Welcome to My Test Website!</h1>
-    <p>This is a simple test website with background music.</p>
+    <div class="container">  
+        <div class="box"></div>      
+        <img src="./assets/images/lemonade.png" id="thumbnail" />
+        
+        <img src="./assets/icons/play.png" onclick="playPause()" id="play-pause" />
+        <img src="./assets/icons/forward.png" onclick="nextSong()" id="next-song" />
+        <img src="./assets/icons/backward.png" onclick="previousSong()" id="previous-song" />
 
-    <script>
-        window.onload = function() {
-            var audio = document.getElementById('background-music');
-            audio.play();
-        };
-    </script>
+        <div class="song-artist">Artist Name</div>
+        <div class="song-title">Song Title</div>
+
+        <!-- Input element for progress bar - min=0 starting value of every song - max length will change per song so leave empty -->
+        
+        <input 
+            type="range" 
+            id="progress-bar" 
+            min="0" 
+            max="" 
+            value="0" 
+            onchange="changeProgressBar()"
+        />
+
+        <div class="currentTime"></div>
+        <div class="durationTime"></div>
+    </div>
+
+    <script src="player.js"></script>
 </body>
 </html>
