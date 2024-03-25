@@ -1,45 +1,176 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Music Player</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gruen</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
-            background-color: #e0f2f1; /* Light blue background */
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-image: url('https://i.pinimg.com/736x/13/19/7a/13197a60f3641722486118d311b3d468.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
+        header {
+            background-color: #000000; /* Black */
+            color: #ffffff; /* Very white */
             text-align: center;
+            padding: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        #play-pause {
-            font-size: 100px;
-            color: #2196F3; /* Blue color */
+        nav {
+            background-color: rgba(0, 0, 0, 0.5); /* 50% transparent black */
+            color: #ffffff; /* Very white */
+            text-align: center;
+            padding: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        nav ul li a {
+            color: #ffffff; /* Very white */
+            text-decoration: none;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.5); /* 50% transparent black */
+            min-width: 160px;
+            z-index: 1;
+            border-radius: 5px;
+            text-align: left;
+            animation: fadeIn 0.3s ease;
+            transition: background-color 0.3s ease;
+        }
+        .dropdown-content a {
+            display: block;
+            color: #ffffff; /* Very white */
+            padding: 10px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .dropdown-content a:hover {
+            background-color: #333333; /* Slightly darker */
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        footer {
+            background-color: #111111; /* A little darker */
+            color: #dddddd; /* Very light gray */
+            text-align: center;
+            padding: 10px 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .icon-btn {
             cursor: pointer;
-            transition: transform 0.2s;
+            color: #ffffff; /* Very white */
+            font-size: 16px;
+            transition: color 0.3s ease;
+            padding: 5px;
+            border-radius: 5px;
+            margin-right: 5px;
+            animation: scaleIn 0.3s ease;
         }
-        #play-pause:hover {
-            transform: scale(1.1);
+        .icon-btn:hover {
+            color: #27ae60; /* Dark lime green */
+        }
+        .about-me {
+            color: #ffffff; /* Very white */
+            text-align: center;
+            padding: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.8); }
+            to { transform: scale(1); }
+        }
+        .music-btn {
+            font-size: 36px;
+        }
+        .music-btn:hover {
+            color: #27ae60; /* Dark lime green */
+        }
+        .playing {
+            animation: dance 1s infinite alternate;
+        }
+        @keyframes dance {
+            0% {
+                transform: rotate(-5deg);
+            }
+            100% {
+                transform: rotate(5deg);
+            }
         }
     </style>
 </head>
 <body>
-    <audio src="./music.mp3" id="song"></audio>
-
-    <div class="container">  
-        <i class="fas fa-leaf" id="play-pause" onclick="playPause()"></i>
-    </div>
+    <audio id="bg-music" src="./music.mp3"></audio>
+    <header>
+        <h1>
+            <i class="fas fa-leaf leaf-btn music-btn" onclick="toggleMusic()"></i> 
+            <span style="color: #45dabf;">Gruen</span>
+        </h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#"><span style="color: #45dabf;"><i class="fas fa-home"></i> Home</span></a></li>
+            <li class="dropdown">
+                <a href="#"><span style="color: #45dabf;"><i class="fas fa-info-circle"></i> About</span></a>
+                <div class="dropdown-content">
+                    <div class="about-me">
+                        <p>This is just a simple website I am working on. Feel free to reach out to me if you have any suggestions.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#"><span style="color: #45dabf;"><i class="fas fa-envelope"></i> Contact</span></a>
+                <div class="dropdown-content">
+                    <a href="mailto:gruensys@proton.me" class="icon-btn"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://discordapp.com/users/900761716466524251" class="icon-btn"><i class="fab fa-discord"></i> Discord</a>
+                    <a href="https://matrix.to/#/@gruen_:matrix.org" class="icon-btn"><i class="fas fa-comment"></i> Matrix</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <footer><p>© 2024 Gruen. All rights reserved.</p></footer>
 
     <script>
-        function playPause() {
-            var song = document.getElementById("song");
-            if (song.paused) {
-                song.play();
+        function toggleMusic() {
+            var music = document.getElementById("bg-music");
+            var leaf = document.querySelector(".leaf-btn");
+            if (music.paused) {
+                music.play();
+                leaf.classList.add("playing");
             } else {
-                song.pause();
+                music.pause();
+                leaf.classList.remove("playing");
             }
         }
     </script>
