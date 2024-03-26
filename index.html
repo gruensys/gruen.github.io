@@ -1,93 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Draggable Window</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    .window {
-      position: absolute;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-      width: 300px;
-      height: 200px;
-    }
-
-    .window-header {
-      background-color: #f0f0f0;
-      padding: 8px;
-      cursor: move;
-      user-select: none;
-    }
-
-    .window-title {
-      font-weight: bold;
-    }
-
-    .window-close {
-      float: right;
-      cursor: pointer;
-    }
-
-    .window-content {
-      padding: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrOS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-  <div class="window" id="window">
-    <div class="window-header" id="window-header">
-      <span class="window-title">Draggable Window</span>
-      <span class="window-close" id="window-close">×</span>
+
+<div class="window" id="calc-window">
+    <div class="window-header" onmousedown="startDragging(event, 'calc-window')">
+        <div class="window-title">Calculator</div>
+        <div class="window-controls">
+            <div class="window-control dot" onclick="minimizeWindow('calc-window')"></div>
+            <div class="window-control dot" onclick="toggleMenu('calc-window')"></div>
+            <div class="window-control dot" onclick="closeWindow('calc-window')"></div>
+        </div>
     </div>
-    <div class="window-content" id="window-content">
+    <div class="window-content">
+        <object type="text/html" data="./window/calc.html" style="width:100%; height:100%;"></object>
     </div>
-  </div>
+</div>
 
-  <script>
-    const windowElement = document.getElementById('window');
-    const headerElement = document.getElementById('window-header');
-    const contentElement = document.getElementById('window-content');
+<div class="window" id="draw-window">
+    <div class="window-header" onmousedown="startDragging(event, 'draw-window')">
+        <div class="window-title">Drawing</div>
+        <div class="window-controls">
+            <div class="window-control dot" onclick="minimizeWindow('draw-window')"></div>
+            <div class="window-control dot" onclick="toggleMenu('draw-window')"></div>
+            <div class="window-control dot" onclick="closeWindow('draw-window')"></div>
+        </div>
+    </div>
+    <div class="window-content">
+        <object type="text/html" data="./window/draw.html" style="width:100%; height:100%;"></object>
+    </div>
+</div>
 
-    let isDragging = false;
-    let mouseX, mouseY, windowX, windowY;
+<div class="window" id="terminal-window">
+    <div class="window-header" onmousedown="startDragging(event, 'terminal-window')">
+        <div class="window-title">Terminal</div>
+        <div class="window-controls">
+            <div class="window-control dot" onclick="minimizeWindow('terminal-window')"></div>
+            <div class="window-control dot" onclick="toggleMenu('terminal-window')"></div>
+            <div class="window-control dot" onclick="closeWindow('terminal-window')"></div>
+        </div>
+    </div>
+    <div class="window-content">
+        <object type="text/html" data="./window/terminal.html" style="width:100%; height:100%;"></object>
+    </div>
+</div>
 
-    headerElement.addEventListener('mousedown', (event) => {
-      isDragging = true;
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-      windowX = windowElement.offsetLeft;
-      windowY = windowElement.offsetTop;
-    });
+<div class="window" id="music-window">
+    <div class="window-header" onmousedown="startDragging(event, 'music-window')">
+        <div class="window-title">Music Player</div>
+        <div class="window-controls">
+            <div class="window-control dot" onclick="minimizeWindow('music-window')"></div>
+            <div class="window-control dot" onclick="toggleMenu('music-window')"></div>
+            <div class="window-control dot" onclick="closeWindow('music-window')"></div>
+        </div>
+    </div>
+    <div class="window-content">
+        <object type="text/html" data="./window/music.html" style="width:100%; height:100%;"></object>
+    </div>
+</div>
 
-    document.addEventListener('mousemove', (event) => {
-      if (isDragging) {
-        const deltaX = event.clientX - mouseX;
-        const deltaY = event.clientY - mouseY;
-        windowElement.style.left = windowX + deltaX + 'px';
-        windowElement.style.top = windowY + deltaY + 'px';
-      }
-    });
+<div class="dock">
+    <div class="dock-item" onclick="openWindow('calc-window')"><i class="fas fa-calculator"></i></div>
+    <div class="dock-item" onclick="openWindow('draw-window')"><i class="fas fa-paint-brush"></i></div>
+    <div class="dock-item" onclick="openWindow('terminal-window')"><i class="fas fa-terminal"></i></div>
+    <div class="dock-item" onclick="openWindow('music-window')"><i class="fas fa-music"></i></div>
+</div>
 
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
+<script src="script.js"></script>
 
-    fetch('./window/calc.html')
-      .then(response => response.text())
-      .then(html => {
-        contentElement.innerHTML = html;
-      })
-      .catch(error => {
-        console.error('Error fetching content:', error);
-      });
-  </script>
 </body>
 </html>
