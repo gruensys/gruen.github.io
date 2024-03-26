@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    overflow: hidden;
+    background-image: url('https://pixeldrain.com/api/file/5s4A58Pz');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.window {
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    touch-action: none;
+    z-index: 1;
+    width: 50%;
+    height: 50%;
+    top: 25%;
+    left: 25%;
+    transition: all 0.3s ease;
+}
+
+.maximized {
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+.window-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #000;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    cursor: grab;
+}
+
+.window-controls {
+    display: flex;
+    gap: 5px;
+    margin-right: 5px;
+}
+
+.window-controls .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.window-content {
+    padding: 20px;
+}
+
+.dock {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    z-index: 100;
+}
+
+.dock-item {
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+}
