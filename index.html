@@ -3,175 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gruen</title>
+    <title>Gos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Roboto', sans-serif;
-            background-image: url('https://i.pinimg.com/736x/13/19/7a/13197a60f3641722486118d311b3d468.jpg');
+            font-family: Arial, sans-serif;
+            color: #76976c;
+            overflow: hidden;
+            background-image: url('https://pixeldrain.com/api/file/5s4A58Pz');
             background-size: cover;
             background-repeat: no-repeat;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            background-attachment: fixed;
         }
-        header {
-            background-color: #000000; /* Black */
-            color: #ffffff; /* Very white */
-            text-align: center;
-            padding: 20px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        nav {
-            background-color: rgba(0, 0, 0, 0.5); /* 50% transparent black */
-            color: #ffffff; /* Very white */
-            text-align: center;
-            padding: 10px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        nav ul li {
-            display: inline;
-            margin: 0 10px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        nav ul li a {
-            color: #ffffff; /* Very white */
-            text-decoration: none;
-            font-size: 20px;
-            transition: color 0.3s ease;
-        }
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        .dropdown-content {
+
+        .window {
             display: none;
             position: absolute;
-            background-color: rgba(0, 0, 0, 0.5); /* 50% transparent black */
-            min-width: 160px;
-            z-index: 1;
-            border-radius: 5px;
-            text-align: left;
-            animation: fadeIn 0.3s ease;
-            transition: background-color 0.3s ease;
-        }
-        .dropdown-content a {
-            display: block;
-            color: #ffffff; /* Very white */
-            padding: 10px 16px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-        .dropdown-content a:hover {
-            background-color: #333333; /* Slightly darker */
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             animation: fadeIn 0.5s ease;
         }
-        footer {
-            background-color: #111111; /* A little darker */
-            color: #dddddd; /* Very light gray */
-            text-align: center;
-            padding: 10px 20px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .icon-btn {
-            cursor: pointer;
-            color: #ffffff; /* Very white */
-            font-size: 16px;
-            transition: color 0.3s ease;
-            padding: 5px;
-            border-radius: 5px;
-            margin-right: 5px;
-            animation: scaleIn 0.3s ease;
-        }
-        .icon-btn:hover {
-            color: #27ae60; /* Dark lime green */
-        }
-        .about-me {
-            color: #ffffff; /* Very white */
-            text-align: center;
-            padding: 20px;
-        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        @keyframes scaleIn {
-            from { transform: scale(0.8); }
-            to { transform: scale(1); }
+
+        .window-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #000;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
-        .music-btn {
-            font-size: 36px;
+
+        .window-controls {
+            display: flex;
+            gap: 5px;
         }
-        .music-btn:hover {
-            color: #27ae60; /* Dark lime green */
+
+        .window-control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            cursor: pointer;
         }
-        .playing {
-            animation: dance 1s infinite alternate;
+
+        .window-content {
+            padding: 20px;
         }
-        @keyframes dance {
-            0% {
-                transform: rotate(-5deg);
+
+        .dock {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            animation: slideInBottom 0.5s ease;
+        }
+
+        .dock-item {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        @keyframes slideInBottom {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
             }
-            100% {
-                transform: rotate(5deg);
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
+        }
+
+        .fa {
+            font-family: 'Font Awesome 5 Free';
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #000;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-icons a {
+            color: #fff;
+            font-size: 24px;
+        }
+
+        .social-icons a:hover {
+            color: #76976c;
+        }
+
+        .terminal-input, .browser-input {
+            border: 2px solid #76976c;
+            border-radius: 5px;
+            padding: 5px;
+            background-color: transparent;
+            color: #fff;
+            outline: none;
+        }
+
+        .terminal-input::placeholder, .browser-input::placeholder {
+            color: #76976c;
         }
     </style>
 </head>
 <body>
-    <audio id="bg-music" src="./music.mp3"></audio>
-    <header>
-        <h1>
-            <i class="fas fa-leaf leaf-btn music-btn" onclick="toggleMusic()"></i> 
-            <span style="color: #45dabf;">Gruen</span>
-        </h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#"><span style="color: #45dabf;"><i class="fas fa-home"></i> Home</span></a></li>
-            <li class="dropdown">
-                <a href="#"><span style="color: #45dabf;"><i class="fas fa-info-circle"></i> About</span></a>
-                <div class="dropdown-content">
-                    <div class="about-me">
-                        <p>This is just a simple website I am working on. Feel free to reach out to me if you have any suggestions.</p>
-                    </div>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="#"><span style="color: #45dabf;"><i class="fas fa-envelope"></i> Contact</span></a>
-                <div class="dropdown-content">
-                    <a href="mailto:gruensys@proton.me" class="icon-btn"><i class="fas fa-envelope"></i> Email</a>
-                    <a href="https://discordapp.com/users/900761716466524251" class="icon-btn"><i class="fab fa-discord"></i> Discord</a>
-                    <a href="https://matrix.to/#/@gruen_:matrix.org" class="icon-btn"><i class="fas fa-comment"></i> Matrix</a>
-                </div>
-            </li>
-        </ul>
-    </nav>
-    <footer><p>© 2024 Gruen. All rights reserved.</p></footer>
 
+    <!-- Welcome Window -->
+    <div class="window" id="welcome-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;">
+        <div class="window-header">
+            <div class="window-title">Welcome</div>
+            <div class="window-controls">
+                <div class="window-control maximize" onclick="maximizeWindow('welcome-window')"></div>
+                <div class="window-control close" onclick="closeWindow('welcome-window')"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- About Window -->
+    <div class="window" id="about-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;">
+        <div class="window-header">
+            <div class="window-title">About</div>
+            <div class="window-controls">
+                <div class="window-control close" onclick="closeWindow('about-window')"></div>
+            </div>
+        </div>
+        <div class="window-content">
+            <p>Just a simple website I'm working on. Currently, there is only one supported command for the terminal (gfetch). If you have any suggestions for more commands or apps, feel free to contact me. via discord: gruen_b, matrix: @gruen_:matrix.org or mail:gruensys.proton.me</p>
+        </div>
+    </div>
+
+    <!-- Browser Window -->
+    <div class="window" id="browser-window" style="top: 100px; left: 100px; opacity: 0.8;">
+        <div class="window-header">
+            <div class="window-title">Browser</div>
+            <div class="window-controls">
+                <div class="window-control maximize" onclick="maximizeWindow('browser-window')"></div>
+                <div class="window-control close" onclick="closeWindow('browser-window')"></div>
+            </div>
+        </div>
+        <div class="window-content">
+            <input type="text" class="browser-input" placeholder="Search...">
+            <button onclick="search()">Go</button>
+        </div>
+    </div>
+
+    <!-- Music Player Window -->
+    <div class="window" id="music-player-window" style="top: 150px; left: 150px; opacity: 0.8;">
+        <div class="window-header">
+            <div class="window-title">Music Player</div>
+            <div class="window-controls">
+                <div class="window-control maximize" onclick="maximizeWindow('music-player-window')"></div>
+                <div class="window-control close" onclick="closeWindow('music-player-window')"></div>
+            </div>
+        </div>
+        <div class="window-content">
+            <audio controls>
+                <source src="./music.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+
+    <!-- Terminal Window -->
+    <div class="window" id="terminal-window" style="top: 200px; left: 200px; opacity: 0.8;">
+        <div class="window-header">
+            <div class="window-title">Terminal</div>
+            <div class="window-controls">
+                <div class="window-control maximize" onclick="maximizeWindow('terminal-window')"></div>
+                <div class="window-control close" onclick="closeWindow('terminal-window')"></div>
+            </div>
+        </div>
+        <div class="window-content">
+            <p>User@gruen: <input type="text" class="terminal-input" id="terminalInput" placeholder="Type a command...">
+<button onclick="runCommand()">Enter</button>
+<div id="terminalOutput"></div>
+        </div>
+    </div>
+
+    <!-- Dock -->
+    <div class="dock">
+        <div class="dock-item" onclick="openWindow('browser-window')"><i class="fas fa-globe"></i></div>
+        <div class="dock-item" onclick="openWindow('music-player-window')"><i class="fas fa-music"></i></div>
+        <div class="dock-item" onclick="openWindow('terminal-window')"><i class="fas fa-terminal"></i></div>
+        <div class="dock-item" onclick="openWindow('about-window')"><i class="fas fa-info"></i></div>
+    </div>
+
+    <!-- Script -->
     <script>
-        function toggleMusic() {
-            var music = document.getElementById("bg-music");
-            var leaf = document.querySelector(".leaf-btn");
-            if (music.paused) {
-                music.play();
-                leaf.classList.add("playing");
+        function openWindow(id) {
+            var window = document.getElementById(id);
+            window.style.display = "block";
+        }
+
+        function closeWindow(id) {
+            var window = document.getElementById(id);
+            window.style.display = "none";
+        }
+
+        function maximizeWindow(id) {
+            var window = document.getElementById(id);
+            window.style.width = "100%";
+            window.style.height = "100%";
+            window.style.top = "0";
+            window.style.left = "0";
+            window.style.transform = "none";
+        }
+
+        function runCommand() {
+            var input = document.getElementById("terminalInput").value;
+            var output = document.getElementById("terminalOutput");
+            output.innerHTML += "<p>> " + input + "</p>";
+            if (input.toLowerCase() === "gfetch") {
+                fetch("https://api64.ipify.org?format=json")
+                    .then(response => response.json())
+                    .then(data => {
+                        output.innerHTML += "<p>Your IP Address: " + data.ip + "</p>";
+                    })
+                    .catch(error => console.error('Error:', error));
+                output.innerHTML += "<p>User Agent: " + navigator.userAgent + "</p>";
             } else {
-                music.pause();
-                leaf.classList.remove("playing");
+                output.innerHTML += "<p>Command not recognized</p>";
             }
+            document.getElementById("terminalInput").value = "";
+        }
+
+        function search() {
+            var input = document.querySelector(".browser-input").value;
+            window.open("https://www.google.com/search?q=" + input, "_blank");
         }
     </script>
 </body>
