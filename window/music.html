@@ -1,108 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Music Player</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #000; 
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        align-items: center; 
-        justify-content: center; 
-        height: 100vh; 
-    }
-
-    .music-player {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .control-btns {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 10px;
-    }
-
-    .control-btn {
-        background-color: transparent;
-        color: #42f590; 
-        border: none;
-        cursor: pointer;
-        font-size: 24px;
-        margin-right: 10px;
-    }
-
-    .control-btn:last-child {
-        margin-right: 0; 
-    }
-
-    .control-btn:hover {
-        color: #4CAF50; 
-    }
-
-    .control-btn:focus {
-        outline: none;
-    }
-</style>
+    <title>Music Player</title>
+    <link rel="stylesheet" href="player.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-<div class="music-player">
-    <audio id="music" src=""></audio>
-    <div class="control-btns">
-        <button class="control-btn" onclick="skipBackward()"><i class="fas fa-backward"></i></button>
-        <button class="control-btn" onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
-        <button class="control-btn" onclick="skipForward()"><i class="fas fa-forward"></i></button>
+    <audio id="song"></audio>
+
+    <div class="container">  
+        <div class="box"></div>      
+        
+        <i class="fas fa-backward" onclick="previousSong()" id="previous-song"></i>
+        <i class="fas fa-play" onclick="playPause()" id="play-pause"></i>
+        <i class="fas fa-forward" onclick="nextSong()" id="next-song"></i>
+
+        <div class="song-title">Song Title</div>
+
+        <!-- Progress bar -->
+        <input 
+            type="range" 
+            id="progress-bar" 
+            min="0" 
+            max="100" 
+            value="0" 
+            onchange="changeProgressBar()"
+        />
+
+        <div class="currentTime">0:00</div>
+        <div class="durationTime">0:00</div>
     </div>
-</div>
 
-<script>
-    const music = document.getElementById('music');
-    let isPlaying = false;
+    <script src="player.js"></script>
+    <script>
+        const songs = [
+            "./music/a-hero-of-the-80s-126684.mp3",
+            "./music/cyberpunk-2099-10701.mp3",
+            "./music/lady-of-the-80x27s-128379.mp3",
+            "./music/moving-slowly-80s-retro-music-121571.mp3",
+            "./music/music1.mp3",
+            "./music/neon-gaming-128925.mp3",
+            "./music/stranger-things-124008.mp3"
+        ];
 
-    function togglePlayPause() {
-        if (isPlaying) {
-            music.pause();
-        } else {
-            music.play();
+        let currentSongIndex = 0;
+        const song = document.getElementById('song');
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeDisplay = document.querySelector('.currentTime');
+        const durationTimeDisplay = document.querySelector('.durationTime');
+
+        function loadSong() {
+            song.src = songs[currentSongIndex];
+            song.play();
+            updateDuration();
         }
-        isPlaying = !isPlaying;
-        updatePlayPauseIcon();
-    }
 
-    function updatePlayPauseIcon() {
-        const playPauseBtn = document.querySelector('.control-btn:nth-child(2) i');
-        playPauseBtn.className = isPlaying ? 'fas fa-pause' : 'fas fa-play';
-    }
-
-    function skipForward() {
-        const currentSourceIndex = getCurrentSourceIndex();
-        if (currentSourceIndex < 6) {
-            music.src = `./music/music${currentSourceIndex + 2}.mp3`;
-            music.play();
+        function updateDuration() {
+            song.addEventListener('loadedmetadata', () => {
+                durationTimeDisplay.textContent = formatTime(song.duration);
+            });
         }
-    }
 
-    function skipBackward() {
-        const currentSourceIndex = getCurrentSourceIndex();
-        if (currentSourceIndex > 0) {
-            music.src = `./music/music${currentSourceIndex}.mp3`;
-            music.play();
+        function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            const seconds = Math.floor(time % 60);
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
         }
-    }
 
-    function getCurrentSourceIndex() {
-        const currentSrc = music.src;
-        const currentIndex = parseInt(currentSrc.slice(-5, -4));
-        return isNaN(currentIndex) ? 0 : currentIndex - 1;
-    }
-</script>
+        function playPause() {
+            if (song.paused) {
+                song.play();
+            } else {
+                song.pause();
+            }
+        }
+
+        function nextSong() {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            loadSong();
+        }
+
+        function previousSong() {
+            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+            loadSong();
+        }
+
+        function changeProgressBar() {
+            const progress = progressBar.value / 100;
+            song.currentTime = song.duration * progress;
+        }
+
+        setInterval(() => {
+            const progress = (song.currentTime / song.duration) * 100;
+            progressBar.value = progress;
+            currentTimeDisplay.textContent = formatTime(song.currentTime);
+        }, 1000);
+
+        loadSong();
+    </script>
 </body>
 </html>
