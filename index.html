@@ -25,6 +25,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             animation: fadeIn 0.5s ease;
+            touch-action: none; /* Disable default touch behavior */
         }
 
         @keyframes fadeIn {
@@ -40,6 +41,7 @@
             background-color: #000;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
+            cursor: grab; /* Change cursor to indicate draggable area */
         }
 
         .window-controls {
@@ -129,134 +131,168 @@
         .terminal-input::placeholder, .browser-input::placeholder {
             color: #76976c;
         }
+
+        .magnifying-glass {
+            color: #6dc06d;
+        }
     </style>
 </head>
 <body>
-
-    <!-- Welcome Window -->
-    <div class="window" id="welcome-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;">
-        <div class="window-header">
-            <div class="window-title">Welcome</div>
-            <div class="window-controls">
-                <div class="window-control maximize" onclick="maximizeWindow('welcome-window')"></div>
-                <div class="window-control close" onclick="closeWindow('welcome-window')"></div>
-            </div>
-        </div>
+<!-- Welcome Window -->
+<div class="window" id="welcome-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;">
+    <div class="window-header" ontouchstart="startDragging(event, 'welcome-window')" ontouchmove="dragging(event)">
+        <div class="window-title">Welcome</div>
+        <div class="window-controls">
+            <div class="window-control maximize" onclick="maximizeWindow('welcome-window')"></div>
+            <div class="window-control close" onclick="closeWindow('welcome-window')"></div>
         </div>
     </div>
+</div>
 
-    <!-- About Window -->
-    <div class="window" id="about-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;">
-        <div class="window-header">
-            <div class="window-title">About</div>
-            <div class="window-controls">
-                <div class="window-control close" onclick="closeWindow('about-window')"></div>
-            </div>
-        </div>
-        <div class="window-content">
-            <p>Just a simple website I'm working on. Currently, there is only one supported command for the terminal (gfetch). If you have any suggestions for more commands or apps, feel free to contact me. via discord: gruen_b, matrix: @gruen_:matrix.org or mail:gruensys.proton.me</p>
+<!-- About Window -->
+<div class="window" id="about-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;">
+    <div class="window-header" ontouchstart="startDragging(event, 'about-window')" ontouchmove="dragging(event)">
+        <div class="window-title">About</div>
+        <div class="window-controls">
+            <div class="window-control close" onclick="closeWindow('about-window')"></div>
         </div>
     </div>
+    <div class="window-content">
+       <p>Just a simple website I'm working on. Currently, there is only one supported command for the terminal (gfetch). If you have any suggestions for more commands or apps, feel free to contact me via <a href="https://discordapp.com/users/900761716466524251" style="color: green;">Discord</a> (gruen_b), <a href="https://matrix.to/#/@gruen_:matrix.org" style="color: green;">Matrix</a> (gruen_), or <a href="mailto:gruensys@proton.me" style="color: green;">mail</a>.
+</p>
+    </div>
+</div>
 
-    <!-- Browser Window -->
-    <div class="window" id="browser-window" style="top: 100px; left: 100px; opacity: 0.8;">
-        <div class="window-header">
-            <div class="window-title">Browser</div>
-            <div class="window-controls">
-                <div class="window-control maximize" onclick="maximizeWindow('browser-window')"></div>
-                <div class="window-control close" onclick="closeWindow('browser-window')"></div>
-            </div>
-        </div>
-        <div class="window-content">
-            <input type="text" class="browser-input" placeholder="Search...">
-            <button onclick="search()">Go</button>
+<!-- Browser Window -->
+<div class="window" id="browser-window" style="top: 100px; left: 100px; opacity: 0.8;" ontouchstart="startDragging(event, 'browser-window')" ontouchmove="dragging(event)">
+    <div class="window-header">
+        <div class="window-title">Browser</div>
+        <div class="window-controls">
+            <div class="window-control maximize" onclick="maximizeWindow('browser-window')"></div>
+            <div class="window-control close" onclick="closeWindow('browser-window')"></div>
         </div>
     </div>
-
-    <!-- Music Player Window -->
-    <div class="window" id="music-player-window" style="top: 150px; left: 150px; opacity: 0.8;">
-        <div class="window-header">
-            <div class="window-title">Music Player</div>
-            <div class="window-controls">
-                <div class="window-control maximize" onclick="maximizeWindow('music-player-window')"></div>
-                <div class="window-control close" onclick="closeWindow('music-player-window')"></div>
-            </div>
-        </div>
-        <div class="window-content">
-            <audio controls>
-                <source src="./music.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
+    <div class="window-content">
+        <input type="text" class="browser-input" placeholder="Search..." onkeypress="handleKeyPress(event)">
+        <i class="fas fa-search magnifying-glass" onclick="search()"></i>
+    </div>
+</div>
+<!-- Music Player Window -->
+<div class="window" id="music-player-window" style="top: 150px; left: 150px; opacity: 0.8;" ontouchstart="startDragging(event, 'music-player-window')" ontouchmove="dragging(event)">
+    <div class="window-header">
+        <div class="window-title">Music Player</div>
+        <div class="window-controls">
+            <div class="window-control maximize" onclick="maximizeWindow('music-player-window')"></div>
+            <div class="window-control close" onclick="closeWindow('music-player-window')"></div>
         </div>
     </div>
+    <div class="window-content">
+        <audio controls>
+            <source src="./music.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+</div>
 
-    <!-- Terminal Window -->
-    <div class="window" id="terminal-window" style="top: 200px; left: 200px; opacity: 0.8;">
-        <div class="window-header">
-            <div class="window-title">Terminal</div>
-            <div class="window-controls">
-                <div class="window-control maximize" onclick="maximizeWindow('terminal-window')"></div>
-                <div class="window-control close" onclick="closeWindow('terminal-window')"></div>
-            </div>
-        </div>
-        <div class="window-content">
-            <p>User@gruen: <input type="text" class="terminal-input" id="terminalInput" placeholder="Type a command...">
-<button onclick="runCommand()">Enter</button>
-<div id="terminalOutput"></div>
+<!-- Terminal Window -->
+<div class="window" id="terminal-window" style="top: 200px; left: 200px; opacity: 0.8;" ontouchstart="startDragging(event, 'terminal-window')" ontouchmove="dragging(event)">
+    <div class="window-header">
+        <div class="window-title">Terminal</div>
+        <div class="window-controls">
+            <div class="window-control maximize" onclick="maximizeWindow('terminal-window')"></div>
+            <div class="window-control close" onclick="closeWindow('terminal-window')"></div>
         </div>
     </div>
-
-    <!-- Dock -->
-    <div class="dock">
-        <div class="dock-item" onclick="openWindow('browser-window')"><i class="fas fa-globe"></i></div>
-        <div class="dock-item" onclick="openWindow('music-player-window')"><i class="fas fa-music"></i></div>
-        <div class="dock-item" onclick="openWindow('terminal-window')"><i class="fas fa-terminal"></i></div>
-        <div class="dock-item" onclick="openWindow('about-window')"><i class="fas fa-info"></i></div>
+    <div class="window-content">
+        <p>User@gruen: <input type="text" class="terminal-input" id="terminalInput" placeholder="Type a command..." onkeypress="handleTerminalKeyPress(event)"></p>
+        <div id="terminalOutput"></div>
     </div>
+</div>
+<!-- Dock -->
+<div class="dock">
+    <div class="dock-item" onclick="openWindow('browser-window')"><i class="fas fa-globe"></i></div>
+    <div class="dock-item" onclick="openWindow('music-player-window')"><i class="fas fa-music"></i></div>
+    <div class="dock-item" onclick="openWindow('terminal-window')"><i class="fas fa-terminal"></i></div>
+    <div class="dock-item" onclick="openWindow('about-window')"><i class="fas fa-info"></i></div>
+</div>
 
-    <!-- Script -->
-    <script>
-        function openWindow(id) {
-            var window = document.getElementById(id);
-            window.style.display = "block";
+<!-- Script -->
+<script>
+    // Function to handle window dragging
+    function startDragging(event, id) {
+        var window = document.getElementById(id);
+        window.setAttribute('data-dragging', 'true');
+        var offsetX = event.touches[0].clientX - window.getBoundingClientRect().left;
+        var offsetY = event.touches[0].clientY - window.getBoundingClientRect().top;
+        window.setAttribute('data-offset-x', offsetX);
+        window.setAttribute('data-offset-y', offsetY);
+    }
+
+    function dragging(event) {
+        var windows = document.querySelectorAll('.window[data-dragging="true"]');
+        windows.forEach(function (window) {
+            var offsetX = parseFloat(window.getAttribute('data-offset-x'));
+            var offsetY = parseFloat(window.getAttribute('data-offset-y'));
+            var newX = event.touches[0].clientX - offsetX;
+            var newY = event.touches[0].clientY - offsetY;
+            window.style.left = newX + 'px';
+            window.style.top = newY + 'px';
+        });
+    }
+
+    function openWindow(id) {
+        var window = document.getElementById(id);
+        window.style.display = "block";
+    }
+
+    function closeWindow(id) {
+        var window = document.getElementById(id);
+        window.style.display = "none";
+    }
+
+    function maximizeWindow(id) {
+        var window = document.getElementById(id);
+        window.style.width = "100%";
+        window.style.height = "100%";
+        window.style.top = "0";
+        window.style.left = "0";
+        window.style.transform = "none";
+    }
+
+    function runCommand() {
+        var input = document.getElementById("terminalInput").value;
+        var output = document.getElementById("terminalOutput");
+        output.innerHTML += "<p>> " + input + "</p>";
+        if (input.toLowerCase() === "gfetch") {
+            fetch("https://api64.ipify.org?format=json")
+                .then(response => response.json())
+                .then(data => {
+                    output.innerHTML += `<p><i class="fas fa-home"></i> Your IP Address: ${data.ip}</p>`;
+                    output.innerHTML += `<p><i class="fas fa-user"></i> User Agent: ${navigator.userAgent}</p>`;
+                })
+                .catch(error => console.error('Error:', error));
+        } else {
+            output.innerHTML += "<p>Command not recognized</p>";
         }
+        document.getElementById("terminalInput").value = "";
+    }
 
-        function closeWindow(id) {
-            var window = document.getElementById(id);
-            window.style.display = "none";
-        }
+    function search() {
+        var input = document.querySelector(".browser-input").value;
+        window.open("https://search.brave.com/search?q=" + input, "_blank");
+    }
 
-        function maximizeWindow(id) {
-            var window = document.getElementById(id);
-            window.style.width = "100%";
-            window.style.height = "100%";
-            window.style.top = "0";
-            window.style.left = "0";
-            window.style.transform = "none";
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            search();
         }
+    }
 
-        function runCommand() {
-            var input = document.getElementById("terminalInput").value;
-            var output = document.getElementById("terminalOutput");
-            output.innerHTML += "<p>> " + input + "</p>";
-            if (input.toLowerCase() === "gfetch") {
-                fetch("https://api64.ipify.org?format=json")
-                    .then(response => response.json())
-                    .then(data => {
-                        output.innerHTML += "<p>Your IP Address: " + data.ip + "</p>";
-                    })
-                    .catch(error => console.error('Error:', error));
-                output.innerHTML += "<p>User Agent: " + navigator.userAgent + "</p>";
-            } else {
-                output.innerHTML += "<p>Command not recognized</p>";
-            }
-            document.getElementById("terminalInput").value = "";
+    function handleTerminalKeyPress(event) {
+        if (event.key === 'Enter') {
+            runCommand();
         }
-
-        function search() {
-            var input = document.querySelector(".browser-input").value;
-            window.open("https://www.google.com/search?q=" + input, "_blank");
-        }
-    </script>
+    }
+</script>
 </body>
 </html>
