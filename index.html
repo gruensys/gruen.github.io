@@ -1,11 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GrOS</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrOS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    /* Global Styles */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        color: #fff;
+        overflow: hidden;
+        background-image: url('https://pixeldrain.com/api/file/5s4A58Pz');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .window {
+        display: none;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        touch-action: none;
+        z-index: 1;
+        transition: all 0.3s ease;
+    }
+
+    .maximized {
+        width: 100% !important;
+        height: 100% !important;
+        top: 0 !important;
+        left: 0 !important;
+    }
+
+    .window-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #000;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        cursor: grab;
+    }
+
+    .window-controls {
+        display: flex;
+        gap: 5px;
+        margin-right: 5px;
+    }
+
+    .window-controls .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #fff;
+        cursor: pointer;
+    }
+
+    .window-controls .dot:nth-child(2) {
+        width: 12px;
+        height: 12px;
+        background-color: #FFC107; /* Yellow color for maximize button */
+    }
+
+    .window-controls .dot:last-child {
+        width: 8px;
+        height: 8px;
+        background-color: #F44336; /* Red color for close button */
+    }
+
+    .window-content {
+        padding: 20px;
+    }
+
+    .dock {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 20px;
+        z-index: 100;
+    }
+
+    .dock-item {
+        font-size: 24px;
+        color: #fff;
+        cursor: pointer;
+    }
+</style>
 </head>
 <body>
 
@@ -14,12 +102,12 @@
         <div class="window-title">Calculator</div>
         <div class="window-controls">
             <div class="window-control dot" onclick="minimizeWindow('calc-window')"></div>
-            <div class="window-control dot" onclick="toggleMenu('calc-window')"></div>
+            <div class="window-control dot" onclick="toggleMaximize('calc-window')"></div>
             <div class="window-control dot" onclick="closeWindow('calc-window')"></div>
         </div>
     </div>
     <div class="window-content">
-        <object type="text/html" data="./window/calc.html" style="width:100%; height:100%;"></object>
+        <!-- Content will be loaded here -->
     </div>
 </div>
 
@@ -28,12 +116,12 @@
         <div class="window-title">Drawing</div>
         <div class="window-controls">
             <div class="window-control dot" onclick="minimizeWindow('draw-window')"></div>
-            <div class="window-control dot" onclick="toggleMenu('draw-window')"></div>
+            <div class="window-control dot" onclick="toggleMaximize('draw-window')"></div>
             <div class="window-control dot" onclick="closeWindow('draw-window')"></div>
         </div>
     </div>
     <div class="window-content">
-        <object type="text/html" data="./window/draw.html" style="width:100%; height:100%;"></object>
+        <!-- Content will be loaded here -->
     </div>
 </div>
 
@@ -42,12 +130,12 @@
         <div class="window-title">Terminal</div>
         <div class="window-controls">
             <div class="window-control dot" onclick="minimizeWindow('terminal-window')"></div>
-            <div class="window-control dot" onclick="toggleMenu('terminal-window')"></div>
+            <div class="window-control dot" onclick="toggleMaximize('terminal-window')"></div>
             <div class="window-control dot" onclick="closeWindow('terminal-window')"></div>
         </div>
     </div>
     <div class="window-content">
-        <object type="text/html" data="./window/terminal.html" style="width:100%; height:100%;"></object>
+        <!-- Content will be loaded here -->
     </div>
 </div>
 
@@ -56,12 +144,12 @@
         <div class="window-title">Music Player</div>
         <div class="window-controls">
             <div class="window-control dot" onclick="minimizeWindow('music-window')"></div>
-            <div class="window-control dot" onclick="toggleMenu('music-window')"></div>
+            <div class="window-control dot" onclick="toggleMaximize('music-window')"></div>
             <div class="window-control dot" onclick="closeWindow('music-window')"></div>
         </div>
     </div>
     <div class="window-content">
-        <object type="text/html" data="./window/music.html" style="width:100%; height:100%;"></object>
+        <!-- Content will be loaded here -->
     </div>
 </div>
 
@@ -72,7 +160,33 @@
     <div class="dock-item" onclick="openWindow('music-window')"><i class="fas fa-music"></i></div>
 </div>
 
-<script src="script.js"></script>
+<script>
+    function startDragging(e, id) {
+        let offsetX = e.clientX,
+            offsetY = e.clientY,
+            initialX = document.getElementById(id).offsetLeft,
+            initialY = document.getElementById(id).offsetTop;
 
-</body>
-</html>
+        function moveWindow(e) {
+            let newX = initialX + e.clientX - offsetX,
+                newY = initialY + e.clientY - offsetY;
+
+            document.getElementById(id).style.left = newX + 'px';
+            document.getElementById(id).style.top = newY + 'px';
+        }
+
+        function stopDragging() {
+            document.removeEventListener('mousemove', moveWindow);
+            document.removeEventListener('mouseup', stopDragging);
+        }
+
+        document.addEventListener('mousemove', moveWindow);
+        document.addEventListener('mouseup', stopDragging);
+    }
+
+    function minimizeWindow(id) {
+        let window = document.getElementById(id);
+        window.classList.toggle('minimized');
+    }
+
+   
