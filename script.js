@@ -1,6 +1,6 @@
 <style>
     .window {
-        transition: left 0.2s ease, top 0.2s ease; /* Add transition */
+        transition: left 0.2s ease, top 0.2s ease; 
         position: absolute;
     }
 </style>
