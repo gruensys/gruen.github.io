@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dish - The Unfriendly Shell</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+  body {
+    background-color: #121212;
+    color: #42f590;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    margin: 0;
+  }
+  .terminal {
+    border: 2px solid #42f590;
+    border-radius: 5px;
+    padding: 10px;
+    width: 80%;
+    margin: 0 auto;
+    min-height: 200px;
+    overflow-y: scroll;
+    background-color: #1e1e1e;
+  }
+  .command-line {
+    display: flex;
+    align-items: center;
+  }
+  .username {
+    color: #42f590;
+    margin-right: 5px;
+  }
+  .input-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  input[type="text"] {
+    background-color: transparent;
+    border: none;
+    color: #42f590;
+    outline: none;
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+<div class="terminal" id="terminal">
+  <p>Welcome to dish, the unfriendly and broken shell. Please select a username:
+    <input type="text" id="usernameInput" onkeydown="submitUsername(event)">
+  </p>
+</div>
+<script>
+  function submitUsername(event) {
+    if (event.key === "Enter") {
+      var username = document.getElementById('usernameInput').value.trim();
+      if (username !== "") {
+        document.getElementById('usernameInput').disabled = true; // Disable the input field after submission
+        initializeTerminal(username);
+      }
+    }
+  }
+
+  function initializeTerminal(username) {
+    document.getElementById('terminal').innerHTML += "<p class='command-line'><span class='username'>" + username + "</span>@grnOS:~$ <div class='input-container'><input type='text' id='commandInput'></div></p>";
+    document.getElementById('commandInput').focus();
+
+    // Handle keyboard events in the command input field
+    document.getElementById('commandInput').addEventListener('keydown', function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault(); // Prevent form submission
+        if (this.value.trim() !== "") {
+          handleInput(username);
+        }
+      }
+    });
+  }
+
+  // Handle command execution
+  function handleInput(username) {
+    var commandInput = document.getElementById('commandInput');
+    var command = commandInput.value.trim();
+    var output = "";
+    switch (command) {
+      case "help":
+        output = "Available commands: help, clear, gfetch";
+        break;
+      case "clear":
+        document.querySelectorAll('.terminal p').forEach(function(node, index) {
+          if (index > 1) node.remove();
+        });
+        commandInput.value = ""; // Clear command input field
+        break;
+      case "gfetch":
+        fetch("https://api.ipify.org?format=json")
+          .then(response => response.json())
+          .then(data => {
+            output = "<i class='fas fa-user'></i> " + username + "<br>";
+            output += "<i class='fas fa-desktop'></i> OS: " + detectOS() + "<br>"; // Change icon to computer/laptop/system
+            output += "<i class='fas fa-globe'></i> Browser: " + detectBrowser() + "<br>";
+            output += "<i class='fas fa-home'></i> IP Address: " + data.ip;
+            document.getElementById('terminal').innerHTML += "<p>" + output + "</p>";
+            appendCommandInput(username); // Append command input field
+          });
+        break;
+      default:
+        output = "<i class='fas fa-exclamation-triangle'></i> Command not found: " + command;
+        document.getElementById('terminal').innerHTML += "<p>" + output + "</p>";
+        appendCommandInput(username); // Append command input field
+        break;
+    }
+    commandInput.value = ""; // Clear command input field
+  }
+
+  function appendCommandInput(username) {
+    document.getElementById('terminal').innerHTML += "<p class='command-line'><span class='username'>" + username + "</span>@grnOS:~$ <div class='input-container'><input type='text' id='commandInput'></div></p>";
+    document.getElementById('commandInput').focus(); // Focus on command input field
+
+    // Handle keyboard events in the newly appended command input field
+    document.getElementById('commandInput').addEventListener('keydown', function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault(); // Prevent form submission
+        if (this.value.trim() !== "") {
+          handleInput(username);
+        }
+      }
+    });
+  }
+
+  function detectBrowser() {
+    var userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf("firefox") > -1) {
+      return "Firefox";
+    } else
+if (userAgent.indexOf("chrome") > -1) {
+      return "Chrome";
+    } else if (userAgent.indexOf("safari") > -1) {
+      return "Safari";
+    } else {
+      return "Unknown";
+    }
+  }
+
+  // Function to detect the operating system
+  function detectOS() {
+    var userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf("windows") !== -1) {
+      return "Windows";
+    } else if (userAgent.indexOf("mac") !== -1 || userAgent.indexOf("iphone") !== -1 || userAgent.indexOf("ipad") !== -1) {
+      return "MacOS";
+    } else if (userAgent.indexOf("android") !== -1) {
+      return "Android";
+    } else if (userAgent.indexOf("linux") !== -1) {
+      return "Linux";
+    } else {
+      return "Unknown";
+    }
+  }
+</script>
+</body>
+</html>
