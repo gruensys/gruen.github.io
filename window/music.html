@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Player</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #000; /* Black background */
+        color: #fff; /* White font color */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center align content horizontally */
+        justify-content: center; /* Center align content vertically */
+        height: 100vh; /* Full viewport height */
+    }
+
+    .music-player {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .control-btns {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+    }
+
+    .control-btn {
+        background-color: transparent;
+        color: #42f590; /* Icon color */
+        border: none;
+        cursor: pointer;
+        font-size: 24px;
+        margin-right: 10px;
+    }
+
+    .control-btn:last-child {
+        margin-right: 0; /* Remove margin from last button */
+    }
+
+    .control-btn:hover {
+        color: #4CAF50; /* Green icon color on hover */
+    }
+
+    .control-btn:focus {
+        outline: none;
+    }
+</style>
+</head>
+<body>
+<div class="music-player">
+    <audio id="music" src="./music/music1.mp3"></audio>
+    <div class="control-btns">
+        <button class="control-btn" onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+        <button class="control-btn" onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+        <button class="control-btn" onclick="skipForward()"><i class="fas fa-forward"></i></button>
+    </div>
+</div>
+
+<script>
+    const music = document.getElementById('music');
+    let isPlaying = false;
+
+    function togglePlayPause() {
+        if (isPlaying) {
+            music.pause();
+        } else {
+            music.play();
+        }
+        isPlaying = !isPlaying;
+        updatePlayPauseIcon();
+    }
+
+    function updatePlayPauseIcon() {
+        const playPauseBtn = document.querySelector('.control-btn:nth-child(2) i');
+        playPauseBtn.className = isPlaying ? 'fas fa-pause' : 'fas fa-play';
+    }
+
+    function skipForward() {
+        const currentSourceIndex = getCurrentSourceIndex();
+        if (currentSourceIndex < 6) {
+            music.src = `./music/music${currentSourceIndex + 2}.mp3`;
+            music.play();
+        }
+    }
+
+    function skipBackward() {
+        const currentSourceIndex = getCurrentSourceIndex();
+        if (currentSourceIndex > 0) {
+            music.src = `./music/music${currentSourceIndex}.mp3`;
+            music.play();
+        }
+    }
+
+    function getCurrentSourceIndex() {
+        const currentSrc = music.src;
+        const currentIndex = parseInt(currentSrc.slice(-5, -4));
+        return isNaN(currentIndex) ? 0 : currentIndex - 1;
+    }
+</script>
+</body>
+</html>
