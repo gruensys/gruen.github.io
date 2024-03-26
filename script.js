@@ -1,42 +1,51 @@
-function startDragging(e, id) {
-    let offsetX = e.clientX,
-        offsetY = e.clientY,
-        initialX = document.getElementById(id).offsetLeft,
-        initialY = document.getElementById(id).offsetTop;
+<style>
+    .window {
+        transition: left 0.2s ease, top 0.2s ease; /* Add transition */
+        position: absolute;
+    }
+</style>
 
-    function moveWindow(e) {
-        let newX = initialX + e.clientX - offsetX,
-            newY = initialY + e.clientY - offsetY;
+<script>
+    function startDragging(e, id) {
+        let offsetX = e.clientX,
+            offsetY = e.clientY,
+            initialX = document.getElementById(id).offsetLeft,
+            initialY = document.getElementById(id).offsetTop;
 
-        document.getElementById(id).style.left = newX + 'px';
-        document.getElementById(id).style.top = newY + 'px';
+        function moveWindow(e) {
+            let newX = initialX + e.clientX - offsetX,
+                newY = initialY + e.clientY - offsetY;
+
+            document.getElementById(id).style.left = newX + 'px';
+            document.getElementById(id).style.top = newY + 'px';
+        }
+
+        function stopDragging() {
+            document.removeEventListener('mousemove', moveWindow);
+            document.removeEventListener('mouseup', stopDragging);
+        }
+
+        document.addEventListener('mousemove', moveWindow);
+        document.addEventListener('mouseup', stopDragging);
     }
 
-    function stopDragging() {
-        document.removeEventListener('mousemove', moveWindow);
-        document.removeEventListener('mouseup', stopDragging);
+    function minimizeWindow(id) {
+        let window = document.getElementById(id);
+        window.classList.toggle('minimized');
     }
 
-    document.addEventListener('mousemove', moveWindow);
-    document.addEventListener('mouseup', stopDragging);
-}
+    function toggleMenu(id) {
+        let window = document.getElementById(id);
+        window.classList.toggle('menu-open');
+    }
 
-function minimizeWindow(id) {
-    let window = document.getElementById(id);
-    window.classList.toggle('minimized');
-}
+    function closeWindow(id) {
+        let window = document.getElementById(id);
+        window.style.display = "none";
+    }
 
-function toggleMenu(id) {
-    let window = document.getElementById(id);
-    window.classList.toggle('menu-open');
-}
-
-function closeWindow(id) {
-    let window = document.getElementById(id);
-    window.style.display = "none";
-}
-
-function openWindow(id) {
-    let window = document.getElementById(id);
-    window.style.display = "block";
-}
+    function openWindow(id) {
+        let window = document.getElementById(id);
+        window.style.display = "block";
+    }
+</script>
