@@ -10,13 +10,13 @@
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #000; /* Black background */
-        color: #fff; /* White font color */
+        background-color: #000; 
+        color: #fff;
         display: flex;
         flex-direction: column;
-        align-items: center; /* Center align content horizontally */
-        justify-content: center; /* Center align content vertically */
-        height: 100vh; /* Full viewport height */
+        align-items: center; 
+        justify-content: center; 
+        height: 100vh; 
     }
 
     .music-player {
@@ -33,7 +33,7 @@
 
     .control-btn {
         background-color: transparent;
-        color: #42f590; /* Icon color */
+        color: #42f590; 
         border: none;
         cursor: pointer;
         font-size: 24px;
@@ -41,45 +41,30 @@
     }
 
     .control-btn:last-child {
-        margin-right: 0; /* Remove margin from last button */
+        margin-right: 0; 
     }
 
     .control-btn:hover {
-        color: #4CAF50; /* Green icon color on hover */
+        color: #4CAF50; 
     }
 
     .control-btn:focus {
         outline: none;
     }
-
-    .song-title {
-        font-size: 18px;
-        margin-top: 10px;
-    }
 </style>
 </head>
 <body>
 <div class="music-player">
-    <audio id="music" src="./music/a-hero-of-the-80s-126684.mp3"></audio>
+    <audio id="music" src=""></audio>
     <div class="control-btns">
         <button class="control-btn" onclick="skipBackward()"><i class="fas fa-backward"></i></button>
         <button class="control-btn" onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
         <button class="control-btn" onclick="skipForward()"><i class="fas fa-forward"></i></button>
     </div>
-    <div class="song-title">A Hero of the 80s</div>
 </div>
 
 <script>
     const music = document.getElementById('music');
-    const songTitles = [
-        "A Hero of the 80s",
-        "Cyberpunk 2099",
-        "Lady of the 80s",
-        "Moving Slowly - 80s Retro Music",
-        "Music 1",
-        "Neon Gaming",
-        "Stranger Things"
-    ];
     let isPlaying = false;
 
     function togglePlayPause() {
@@ -100,18 +85,16 @@
     function skipForward() {
         const currentSourceIndex = getCurrentSourceIndex();
         if (currentSourceIndex < 6) {
-            music.src = `./music/${currentSourceIndex + 2}.mp3`;
+            music.src = `./music/music${currentSourceIndex + 2}.mp3`;
             music.play();
-            document.querySelector('.song-title').textContent = songTitles[currentSourceIndex + 1];
         }
     }
 
     function skipBackward() {
         const currentSourceIndex = getCurrentSourceIndex();
         if (currentSourceIndex > 0) {
-            music.src = `./music/${currentSourceIndex}.mp3`;
+            music.src = `./music/music${currentSourceIndex}.mp3`;
             music.play();
-            document.querySelector('.song-title').textContent = songTitles[currentSourceIndex - 1];
         }
     }
 
