@@ -1,160 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GrOS v.1</title>
-    <h1> v1</h1>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            color: #fff;
-            overflow: hidden;
-            background-image: url('https://pixeldrain.com/api/file/5s4A58Pz');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Draggable Window</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-        .window {
-            display: none;
-            position: absolute;
-            background-color: rgba(0, 0, 0, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            touch-action: none;
-            z-index: 1;
-        }
+    .window {
+      position: absolute;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      width: 300px;
+      height: 200px;
+    }
 
-        .window-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background-color: #000;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            cursor: grab;
-        }
+    .window-header {
+      background-color: #f0f0f0;
+      padding: 8px;
+      cursor: move;
+      user-select: none;
+    }
 
-        .window-controls {
-            display: flex;
-            gap: 5px;
-        }
+    .window-title {
+      font-weight: bold;
+    }
 
-        .window-control {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #ffffff;
-            cursor: pointer;
-        }
+    .window-close {
+      float: right;
+      cursor: pointer;
+    }
 
-        .window-content {
-            padding: 20px;
-        }
-
-        .dock {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            z-index: 100;
-        }
-
-        .dock-item {
-            font-size: 24px;
-            color: #fff;
-            cursor: pointer;
-        }
-    </style>
+    .window-content {
+      padding: 10px;
+    }
+  </style>
 </head>
 <body>
-
-<div class="window" id="calc-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;">
-    <div class="window-header">
-        <div class="window-title">Calculator</div>
-        <div class="window-controls">
-            <div class="window-control maximize" onclick="toggleMaximize('calc-window')"><i class="fas fa-window-maximize"></i></div>
-            <div class="window-control minimize" onclick="minimizeWindow('calc-window')"><i class="far fa-window-minimize"></i></div>
-            <div class="window-control close" onclick="closeWindow('calc-window')"><i class="fas fa-times"></i></div>
-        </div>
+  <div class="window" id="window">
+    <div class="window-header" id="window-header">
+      <span class="window-title">Draggable Window</span>
+      <span class="window-close" id="window-close">×</span>
     </div>
-    <div class="window-content">
-        <object type="text/html" data="window/calc.html" style="width:100%; height:100%;"></object>
+    <div class="window-content" id="window-content">
     </div>
-</div>
+  </div>
 
-<div class="window" id="draw-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;">
-    <div class="window-header">
-        <div class="window-title">Drawing</div>
-        <div class="window-controls">
-            <div class="window-control maximize" onclick="toggleMaximize('draw-window')"><i class="fas fa-window-maximize"></i></div>
-            <div class="window-control minimize" onclick="minimizeWindow('draw-window')"><i class="far fa-window-minimize"></i></div>
-            <div class="window-control close" onclick="closeWindow('draw-window')"><i class="fas fa-times"></i></div>
-        </div>
-    </div>
-    <div class="window-content">
-        <object type="text/html" data="window/draw.html" style="width:100%; height:100%;"></object>
-    </div>
-</div>
+  <script>
+    const windowElement = document.getElementById('window');
+    const headerElement = document.getElementById('window-header');
+    const contentElement = document.getElementById('window-content');
 
-<script>
-    function toggleMaximize(id) {
-        var window = document.getElementById(id);
-        if (window.classList.contains('maximized')) {
-            window.style.top = window.getAttribute('data-prev-top');
-            window.style.left = window.getAttribute('data-prev-left');
-            window.style.width = window.getAttribute('data-prev-width');
-            window.style.height = window.getAttribute('data-prev-height');
-            window.classList.remove('maximized');
-        } else {
-            window.setAttribute('data-prev-top', window.style.top);
-            window.setAttribute('data-prev-left', window.style.left);
-            window.setAttribute('data-prev-width', window.style.width);
-            window.setAttribute('data-prev-height', window.style.height);
-            window.style.top = '0';
-            window.style.left = '0';
-            window.style.width = '100%';
-            window.style.height = '100%';
-            window.classList.add('maximized');
-        }
-    }
+    let isDragging = false;
+    let mouseX, mouseY, windowX, windowY;
 
-    function minimizeWindow(id) {
-        var window = document.getElementById(id);
-        window.style.display = "none";
-    }
+    headerElement.addEventListener('mousedown', (event) => {
+      isDragging = true;
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+      windowX = windowElement.offsetLeft;
+      windowY = windowElement.offsetTop;
+    });
 
-    function closeWindow(id) {
-        var window = document.getElementById(id);
-        window.style.display = "none";
-    }
+    document.addEventListener('mousemove', (event) => {
+      if (isDragging) {
+        const deltaX = event.clientX - mouseX;
+        const deltaY = event.clientY - mouseY;
+        windowElement.style.left = windowX + deltaX + 'px';
+        windowElement.style.top = windowY + deltaY + 'px';
+      }
+    });
 
-    function startDragging(event, id) {
-        var window = document.getElementById(id);
-        window.style.zIndex = 2; // Bring the window to the front
-        var offsetX = event.touches[0].clientX - window.getBoundingClientRect().left;
-        var offsetY = event.touches[0].clientY - window.getBoundingClientRect().top;
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
 
-        window.addEventListener('touchmove', function(e) {
-            dragging(e, id, offsetX, offsetY);
-        });
-    }
-
-    function dragging(event, id, offsetX, offsetY) {
-        var window = document.getElementById(id);
-        var newX = event.touches[0].clientX - offsetX;
-        var newY = event.touches[0].clientY - offsetY;
-        window.style.left = newX + 'px';
-        window.style.top = newY + 'px';
-    }
-</script>
-
+    fetch('./window/calc.html')
+      .then(response => response.text())
+      .then(html => {
+        contentElement.innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Error fetching content:', error);
+      });
+  </script>
 </body>
 </html>
