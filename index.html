@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            color: #76976c;
+            color: #fff;
             overflow: hidden;
             background-image: url('https://pixeldrain.com/api/file/5s4A58Pz');
             background-size: cover;
@@ -24,14 +24,8 @@
             background-color: rgba(0, 0, 0, 0.8);
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.5s ease;
-            touch-action: none; /* Disable default touch behavior */
-            z-index: 1; /* Set default z-index */
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            touch-action: none;
+            z-index: 1;
         }
 
         .window-header {
@@ -42,7 +36,7 @@
             background-color: #000;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
-            cursor: grab; /* Change cursor to indicate draggable area */
+            cursor: grab;
         }
 
         .window-controls {
@@ -69,7 +63,7 @@
             transform: translateX(-50%);
             display: flex;
             gap: 20px;
-            animation: slideInBottom 0.5s ease;
+            z-index: 100;
         }
 
         .dock-item {
@@ -77,112 +71,63 @@
             color: #fff;
             cursor: pointer;
         }
-
-        @keyframes slideInBottom {
-            from {
-                transform: translateY(100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .fa {
-            font-family: 'Font Awesome 5 Free';
-        }
-
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #000;
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .social-icons a {
-            color: #fff;
-            font-size: 24px;
-        }
-
-        .social-icons a:hover {
-            color: #76976c;
-        }
-
-        .terminal-input, .browser-input {
-            border: 2px solid #76976c;
-            border-radius: 5px;
-            padding: 5px;
-            background-color: transparent;
-            color: #fff;
-            outline: none;
-        }
-
-        .terminal-input::placeholder, .browser-input::placeholder {
-            color: #76976c;
-        }
-
-        .magnifying-glass {
-            color: #6dc06d;
-        }
     </style>
 </head>
 <body>
-<!-- Welcome window -->
-<div class="window" id="welcome-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;" ontouchstart="startDragging(event, 'welcome-window')" ontouchmove="dragging(event, 'welcome-window')">
-    <div class="window-header">
-        <div class="window-title">Welcome</div>
-        <div class="window-controls">
-            <div class="window-control maximize" onclick="maximizeWindow('welcome-window')"></div>
-            <div class="window-control close" onclick="closeWindow('welcome-window')"></div>
-        </div>
-    </div>
-</div>
 
-<!-- About window -->
-<div class="window" id="about-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;" ontouchstart="startDragging(event, 'about-window')" ontouchmove="dragging(event, 'about-window')">
+<div class="window" id="calc-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;">
     <div class="window-header">
-        <div class="window-title">About</div>
+        <div class="window-title">Calculator</div>
         <div class="window-controls">
-            <div class="window-control close" onclick="closeWindow('about-window')"></div>
+            <div class="window-control maximize" onclick="toggleMaximize('calc-window')"><i class="fas fa-window-maximize"></i></div>
+            <div class="window-control minimize" onclick="minimizeWindow('calc-window')"><i class="far fa-window-minimize"></i></div>
+            <div class="window-control close" onclick="closeWindow('calc-window')"><i class="fas fa-times"></i></div>
         </div>
     </div>
     <div class="window-content">
-        <p>Just a simple website (version 1.1) I'm working on. Currently, there is only one supported command for the terminal (gfetch). If you have any suggestions for more commands or apps, feel free to contact me via <a href="https://discordapp.com/users/900761716466524251" style="color: green;">Discord</a>, <a href="https://matrix.to/#/@gruen_:matrix.org" style="color: green;">Matrix</a> or <a href="mailto:gruensys@proton.me" style="color: green;">mail</a>.
-        </p>
+        <object type="text/html" data="window/calc.html" style="width:100%; height:100%;"></object>
     </div>
 </div>
 
-
-<div id="draw-window" class="window"></div>
-<div id="calc-window" class="window"></div>
-<div id="music-window" class="window"></div>
-<div id="term-window" class="window"></div>
-
-
-<div class="dock">
-    <div class="dock-item" onclick="openWindow('term-window')"><i class="fas fa-terminal"></i></div>
-    <div class="dock-item" onclick="openWindow('music-window')"><i class="fas fa-music"></i></div>
-    <div class="dock-item" onclick="openWindow('calc-window')"><i class="fas fa-calculator"></i></div>
-    <div class="dock-item" onclick="openWindow('draw-window')"><i class="fas fa-paint-brush"></i></div>
+<div class="window" id="draw-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;">
+    <div class="window-header">
+        <div class="window-title">Drawing</div>
+        <div class="window-controls">
+            <div class="window-control maximize" onclick="toggleMaximize('draw-window')"><i class="fas fa-window-maximize"></i></div>
+            <div class="window-control minimize" onclick="minimizeWindow('draw-window')"><i class="far fa-window-minimize"></i></div>
+            <div class="window-control close" onclick="closeWindow('draw-window')"><i class="fas fa-times"></i></div>
+        </div>
+    </div>
+    <div class="window-content">
+        <object type="text/html" data="window/draw.html" style="width:100%; height:100%;"></object>
+    </div>
 </div>
 
 <script>
-    function openWindow(id) {
+    function toggleMaximize(id) {
         var window = document.getElementById(id);
-        window.style.display = "block";
-        window.style.zIndex = 2;
+        if (window.classList.contains('maximized')) {
+            window.style.top = window.getAttribute('data-prev-top');
+            window.style.left = window.getAttribute('data-prev-left');
+            window.style.width = window.getAttribute('data-prev-width');
+            window.style.height = window.getAttribute('data-prev-height');
+            window.classList.remove('maximized');
+        } else {
+            window.setAttribute('data-prev-top', window.style.top);
+            window.setAttribute('data-prev-left', window.style.left);
+            window.setAttribute('data-prev-width', window.style.width);
+            window.setAttribute('data-prev-height', window.style.height);
+            window.style.top = '0';
+            window.style.left = '0';
+            window.style.width = '100%';
+            window.style.height = '100%';
+            window.classList.add('maximized');
+        }
+    }
+
+    function minimizeWindow(id) {
+        var window = document.getElementById(id);
+        window.style.display = "none";
     }
 
     function closeWindow(id) {
@@ -190,7 +135,25 @@
         window.style.display = "none";
     }
 
+    function startDragging(event, id) {
+        var window = document.getElementById(id);
+        window.style.zIndex = 2; // Bring the window to the front
+        var offsetX = event.touches[0].clientX - window.getBoundingClientRect().left;
+        var offsetY = event.touches[0].clientY - window.getBoundingClientRect().top;
+
+        window.addEventListener('touchmove', function(e) {
+            dragging(e, id, offsetX, offsetY);
+        });
+    }
+
+    function dragging(event, id, offsetX, offsetY) {
+        var window = document.getElementById(id);
+        var newX = event.touches[0].clientX - offsetX;
+        var newY = event.touches[0].clientY - offsetY;
+        window.style.left = newX + 'px';
+        window.style.top = newY + 'px';
+    }
 </script>
+
 </body>
 </html>
-``
