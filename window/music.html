@@ -51,20 +51,35 @@
     .control-btn:focus {
         outline: none;
     }
+
+    .song-title {
+        font-size: 18px;
+        margin-top: 10px;
+    }
 </style>
 </head>
 <body>
 <div class="music-player">
-    <audio id="music" src="./music/music1.mp3"></audio>
+    <audio id="music" src="./music/a-hero-of-the-80s-126684.mp3"></audio>
     <div class="control-btns">
         <button class="control-btn" onclick="skipBackward()"><i class="fas fa-backward"></i></button>
         <button class="control-btn" onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
         <button class="control-btn" onclick="skipForward()"><i class="fas fa-forward"></i></button>
     </div>
+    <div class="song-title">A Hero of the 80s</div>
 </div>
 
 <script>
     const music = document.getElementById('music');
+    const songTitles = [
+        "A Hero of the 80s",
+        "Cyberpunk 2099",
+        "Lady of the 80s",
+        "Moving Slowly - 80s Retro Music",
+        "Music 1",
+        "Neon Gaming",
+        "Stranger Things"
+    ];
     let isPlaying = false;
 
     function togglePlayPause() {
@@ -85,16 +100,18 @@
     function skipForward() {
         const currentSourceIndex = getCurrentSourceIndex();
         if (currentSourceIndex < 6) {
-            music.src = `./music/music${currentSourceIndex + 2}.mp3`;
+            music.src = `./music/${currentSourceIndex + 2}.mp3`;
             music.play();
+            document.querySelector('.song-title').textContent = songTitles[currentSourceIndex + 1];
         }
     }
 
     function skipBackward() {
         const currentSourceIndex = getCurrentSourceIndex();
         if (currentSourceIndex > 0) {
-            music.src = `./music/music${currentSourceIndex}.mp3`;
+            music.src = `./music/${currentSourceIndex}.mp3`;
             music.play();
+            document.querySelector('.song-title').textContent = songTitles[currentSourceIndex - 1];
         }
     }
 
