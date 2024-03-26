@@ -139,6 +139,7 @@
     </style>
 </head>
 <body>
+<!-- Welcome window -->
 <div class="window" id="welcome-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;" ontouchstart="startDragging(event, 'welcome-window')" ontouchmove="dragging(event, 'welcome-window')">
     <div class="window-header">
         <div class="window-title">Welcome</div>
@@ -149,6 +150,7 @@
     </div>
 </div>
 
+<!-- About window -->
 <div class="window" id="about-window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.8;" ontouchstart="startDragging(event, 'about-window')" ontouchmove="dragging(event, 'about-window')">
     <div class="window-header">
         <div class="window-title">About</div>
@@ -157,91 +159,30 @@
         </div>
     </div>
     <div class="window-content">
-       <p>Just a simple website (version 1.1) I'm working on. Currently, there is only one supported command for the terminal (gfetch). If you have any suggestions for more commands or apps, feel free to contact me via <a href="https://discordapp.com/users/900761716466524251" style="color: green;">Discord</a> ,<a href="https://matrix.to/#/@gruen_:matrix.org" style="color: green;">Matrix</a> or <a href="mailto:gruensys@proton.me" style="color: green;">mail</a>.
-</p>
+        <p>Just a simple website (version 1.1) I'm working on. Currently, there is only one supported command for the terminal (gfetch). If you have any suggestions for more commands or apps, feel free to contact me via <a href="https://discordapp.com/users/900761716466524251" style="color: green;">Discord</a>, <a href="https://matrix.to/#/@gruen_:matrix.org" style="color: green;">Matrix</a> or <a href="mailto:gruensys@proton.me" style="color: green;">mail</a>.
+        </p>
     </div>
 </div>
 
-<div class="window" id="browser-window" style="top: 100px; left: 100px; opacity: 0.8;" ontouchstart="startDragging(event, 'browser-window')" ontouchmove="dragging(event, 'browser-window')">
-    <div class="window-header">
-        <div class="window-title">Browser</div>
-        <div class="window-controls">
-            <div class="window-control maximize" onclick="maximizeWindow('browser-window')"></div>
-            <div class="window-control close" onclick="closeWindow('browser-window')"></div>
-        </div>
-    </div>
-    <div class="window-content"> 
-        <input type="text" class="browser-input" placeholder="Search..." onkeypress="handleKeyPress(event)">
-        <i class="fas fa-search magnifying-glass" onclick="search()"></i>
-    </div>
-</div>
-</div>
-<div class="window" id="music-player-window" style="top: 150px; left: 150px; opacity: 0.8;" ontouchstart="startDragging(event, 'music-player-window')" ontouchmove="dragging(event, 'music-player-window')">
-    <div class="window-header">
-        <div class="window-title">Music Player</div>
-        <div class="window-controls">
-            <div class="window-control maximize" onclick="maximizeWindow('music-player-window')"></div>
-            <div class="window-control close" onclick="closeWindow('music-player-window')"></div>
-        </div>
-    </div>
-    <div class="window-content">
-        <audio controls>
-            <source src="./music.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-</div>
-<div class="window" id="terminal-window" style="top: 200px; left: 200px; opacity: 0.8;" ontouchstart="startDragging(event, 'terminal-window')" ontouchmove="dragging(event, 'terminal-window')">
-    <div class="window-header">
-        <div class="window-title">Terminal</div>
-        <div class="window-controls">
-            <div class="window-control maximize" onclick="maximizeWindow('terminal-window')"></div>
-            <div class="window-control close" onclick="closeWindow('terminal-window')"></div>
-        </div>
-    </div>
-    <div class="window-content">
-        <p>user@gruen: <input type="text" class="terminal-input" id="terminalInput" placeholder="Type a command..." onkeypress="handleTerminalKeyPress(event)"></p>
-        <div id="terminalOutput"></div>
-    </div>
-</div>
+
+<div id="draw-window" class="window"></div>
+<div id="calc-window" class="window"></div>
+<div id="music-window" class="window"></div>
+<div id="term-window" class="window"></div>
+
+
 <div class="dock">
-    <div class="dock-item" onclick="openWindow('browser-window')"><i class="fas fa-globe"></i></div>
-    <div class="dock-item" onclick="openWindow('music-player-window')"><i class="fas fa-music"></i></div>
-    <div class="dock-item" onclick="openWindow('terminal-window')"><i class="fas fa-terminal"></i></div>
-    <div class="dock-item" onclick="openWindow('about-window')"><i class="fas fa-info"></i></div>
+    <div class="dock-item" onclick="openWindow('term-window')"><i class="fas fa-terminal"></i></div>
+    <div class="dock-item" onclick="openWindow('music-window')"><i class="fas fa-music"></i></div>
+    <div class="dock-item" onclick="openWindow('calc-window')"><i class="fas fa-calculator"></i></div>
+    <div class="dock-item" onclick="openWindow('draw-window')"><i class="fas fa-paint-brush"></i></div>
 </div>
 
 <script>
-    function startDragging(event, id) {
-        var window = document.getElementById(id);
-        window.setAttribute('data-dragging', 'true');
-        window.style.zIndex = 2; 
-        var offsetX = event.touches[0].clientX - window.getBoundingClientRect().left;
-        var offsetY = event.touches[0].clientY - window.getBoundingClientRect().top;
-        window.setAttribute('data-offset-x', offsetX);
-        window.setAttribute('data-offset-y', offsetY);
-    }
-
-    function dragging(event, id) {
-        var window = document.getElementById(id);
-        if (window.getAttribute('data-dragging') === 'true') {
-            var offsetX = parseFloat(window.getAttribute('data-offset-x'));
-            var offsetY = parseFloat(window.getAttribute('data-offset-y'));
-            var newX = event.touches[0].clientX - offsetX;
-            var newY = event.touches[0].clientY - offsetY;
-            window.style.left = newX + 'px';
-            window.style.top = newY + 'px';
-        }
-    }
-
-    function stopDragging(event, id) {
-        var window = document.getElementById(id);
-        window.setAttribute('data-dragging', 'false');
-    }
-
     function openWindow(id) {
         var window = document.getElementById(id);
         window.style.display = "block";
-        window.style.zIndex = 2; 
+        window.style.zIndex = 2;
     }
 
     function closeWindow(id) {
@@ -249,50 +190,7 @@
         window.style.display = "none";
     }
 
-    function maximizeWindow(id) {
-        var window = document.getElementById(id);
-        window.style.width = "100%";
-        window.style.height = "100%";
-        window.style.top = "0";
-        window.style.left = "0";
-        window.style.transform = "none";
-        window.style.zIndex = 2;
-    }
-
-    function runCommand() {
-        var input = document.getElementById("terminalInput").value;
-        var output = document.getElementById("terminalOutput");
-        output.innerHTML += "<p>> " + input + "</p>";
-        if (input.toLowerCase() === "gfetch") {
-            fetch("https://api64.ipify.org?format=json")
-                .then(response => response.json())
-                .then(data => {
-                    output.innerHTML += `<p><i class="fas fa-home"></i> Your IP Address: ${data.ip}</p>`;
-                    output.innerHTML += `<p><i class="fas fa-user"></i> User Agent: ${navigator.userAgent}</p>`;
-                })
-                .catch(error => console.error('Error:', error));
-        } else {
-            output.innerHTML += "<p>Command not recognized</p>";
-        }
-        document.getElementById("terminalInput").value = "";
-    }
-
-    function search() {
-        var input = document.querySelector(".browser-input").value;
-        window.open("https://search.brave.com/search?q=" + input, "_blank");
-    }
-
-    function handleKeyPress(event) {
-        if (event.key === 'Enter') {
-            search();
-        }
-    }
-
-    function handleTerminalKeyPress(event) {
-        if (event.key === 'Enter') {
-            runCommand();
-        }
-    }
 </script>
 </body>
 </html>
+``
