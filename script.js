@@ -1,51 +1,27 @@
-<style>
-    .window {
-        transition: left 0.2s ease, top 0.2s ease; 
-        position: absolute;
-    }
-</style>
 
-<script>
-    function startDragging(e, id) {
-        let offsetX = e.clientX,
-            offsetY = e.clientY,
-            initialX = document.getElementById(id).offsetLeft,
-            initialY = document.getElementById(id).offsetTop;
+function resizeWallpaper() {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    document.body.style.backgroundSize = screenWidth + 'px ' + screenHeight + 'px';
+}
 
-        function moveWindow(e) {
-            let newX = initialX + e.clientX - offsetX,
-                newY = initialY + e.clientY - offsetY;
+window.onload = resizeWallpaper;
+window.onresize = resizeWallpaper;
 
-            document.getElementById(id).style.left = newX + 'px';
-            document.getElementById(id).style.top = newY + 'px';
-        }
+function openApp(appName) {
+    const windowElement = document.getElementById(appName + 'App');
+    windowElement.classList.add('active');
 
-        function stopDragging() {
-            document.removeEventListener('mousemove', moveWindow);
-            document.removeEventListener('mouseup', stopDragging);
-        }
+    
+    const randomX = Math.floor(Math.random() * (window.innerWidth - windowElement.offsetWidth));
+    const randomY = Math.floor(Math.random() * (window.innerHeight - windowElement.offsetHeight));
+    windowElement.style.left = randomX + 'px';
+    windowElement.style.top = randomY + 'px';
 
-        document.addEventListener('mousemove', moveWindow);
-        document.addEventListener('mouseup', stopDragging);
-    }
 
-    function minimizeWindow(id) {
-        let window = document.getElementById(id);
-        window.classList.toggle('minimized');
-    }
+    $(windowElement).draggable();
+}
 
-    function toggleMenu(id) {
-        let window = document.getElementById(id);
-        window.classList.toggle('menu-open');
-    }
-
-    function closeWindow(id) {
-        let window = document.getElementById(id);
-        window.style.display = "none";
-    }
-
-    function openWindow(id) {
-        let window = document.getElementById(id);
-        window.style.display = "block";
-    }
-</script>
+function closeApp(appName) {
+    document.getElementById(appName + 'App').classList.remove('active');
+}
