@@ -109,8 +109,18 @@
   }
 
   function getOS() {
-    return "grnOS"; // Always return "grnOS"
-  }
+    const platform = navigator.platform.toLowerCase();
+    if (platform.includes('win')) {
+        return 'Windows';
+    } else if (platform.includes('mac')) {
+        return 'Mac OS';
+    } else if (platform.includes('linux')) {
+        return 'Linux';
+    } else {
+        return 'Unknown';
+    }
+}
+
 
   function getUserIP(callback) {
     fetch('https://api.ipify.org?format=json')
