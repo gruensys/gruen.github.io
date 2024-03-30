@@ -1,73 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GrOS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple OS</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 
-<div class="window" id="calc-window">
-    <div class="window-header" onmousedown="startDragging(event, 'calc-window')">
-        <div class="window-title">Calculator</div>
-        <div class="window-controls">
-            <div class="window-control dot" onclick="minimizeWindow('calc-window')"></div>
-            <div class="window-control dot" onclick="toggleMenu('calc-window')"></div>
-            <div class="window-control dot" onclick="closeWindow('calc-window')"></div>
-        </div>
-    </div>
-    <div class="window-content" id="calc-content">
-    </div>
+<div id="dock">
+    <div class="icon" onclick="openApp('drawing')"><i class="fas fa-paint-brush"></i></div>
+    <div class="icon" onclick="openApp('calculator')"><i class="fas fa-calculator"></i></div>
+    <div class="icon" onclick="openApp('music')"><i class="fas fa-music"></i></div>
+    <div class="icon" onclick="openApp('terminal')"><i class="fas fa-terminal"></i></div>
 </div>
 
-<div class="window" id="draw-window">
-    <div class="window-header" onmousedown="startDragging(event, 'draw-window')">
-        <div class="window-title">Drawing</div>
-        <div class="window-controls">
-            <div class="window-control dot" onclick="minimizeWindow('draw-window')"></div>
-            <div class="window-control dot" onclick="toggleMenu('draw-window')"></div>
-            <div class="window-control dot" onclick="closeWindow('draw-window')"></div>
-        </div>
-    </div>
-    <div class="window-content" id="draw-content">
-    </div>
+<div id="drawingApp" class="window">
+    <span class="close-btn" onclick="closeApp('drawing')"><i class="fas fa-times"></i></span>
+    <div class="app-title">Drawing App</div>
+    <iframe src="./window/draw.html"></iframe>
 </div>
 
-<div class="window" id="terminal-window">
-    <div class="window-header" onmousedown="startDragging(event, 'terminal-window')">
-        <div class="window-title">Terminal</div>
-        <div class="window-controls">
-            <div class="window-control dot" onclick="minimizeWindow('terminal-window')"></div>
-            <div class="window-control dot" onclick="toggleMenu('terminal-window')"></div>
-            <div class="window-control dot" onclick="closeWindow('terminal-window')"></div>
-        </div>
-    </div>
-    <div class="window-content" id="terminal-content">
-    </div>
+<div id="calculatorApp" class="window">
+    <span class="close-btn" onclick="closeApp('calculator')"><i class="fas fa-times"></i></span>
+    <div class="app-title">Calculator App</div>
+    <iframe src="./window/calc.html"></iframe>
 </div>
 
-<div class="window" id="music-window">
-    <div class="window-header" onmousedown="startDragging(event, 'music-window')">
-        <div class="window-title">Music Player</div>
-        <div class="window-controls">
-            <div class="window-control dot" onclick="minimizeWindow('music-window')"></div>
-            <div class="window-control dot" onclick="toggleMenu('music-window')"></div>
-            <div class="window-control dot" onclick="closeWindow('music-window')"></div>
-        </div>
-    </div>
-    <div class="window-content" id="music-content">
-    </div>
+<div id="musicApp" class="window">
+    <span class="close-btn" onclick="closeApp('music')"><i class="fas fa-times"></i></span>
+    <div class="app-title">Music Player</div>
+    <iframe src="./window/music.html"></iframe>
 </div>
 
-<div class="dock">
-    <div class="dock-item" onclick="openWindow('calc-window')"><i class="fas fa-calculator"></i></div>
-    <div class="dock-item" onclick="openWindow('draw-window')"><i class="fas fa-paint-brush"></i></div>
-    <div class="dock-item" onclick="openWindow('terminal-window')"><i class="fas fa-terminal"></i></div>
-    <div class="dock-item" onclick="openWindow('music-window')"><i class="fas fa-music"></i></div>
+<div id="terminalApp" class="window">
+    <span class="close-btn" onclick="closeApp('terminal')"><i class="fas fa-times"></i></span>
+    <div class="app-title">Terminal</div>
+    <iframe src="./window/term.html"></iframe>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="script.js"></script>
 
 </body>
