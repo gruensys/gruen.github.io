@@ -25,3 +25,22 @@ function openApp(appName) {
 function closeApp(appName) {
     document.getElementById(appName + 'App').classList.remove('active');
 }
+function openApp(appName) {
+    var app = document.getElementById(appName + 'App');
+    app.style.display = "block";
+}
+
+function closeApp(appName) {
+    var app = document.getElementById(appName + 'App');
+    app.style.display = "none";
+}
+
+function minimizeApp(appName) {
+    var app = document.getElementById(appName + 'App');
+    app.style.display = "none";
+}
+
+function maximizeApp(appName) {
+    var app = document.getElementById(appName + 'App');
+    app.classList.toggle('maximized');
+}
