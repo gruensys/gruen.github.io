@@ -27,18 +27,19 @@ body {
 
 .window {
     position: fixed;
-    background-color: rgba(30, 30, 30, 0.9); 
+    background-color: #000000; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     overflow: auto;
     display: none;
     z-index: 1;  
-    width: 90%; 
-    height: 90%; 
-    top: 5%; 
-    left: 5%;
+    width: 45%;
+    height: 45%;
+    top: 27.5%;
+    left: 27.5%;
 }
+
 
 .window.active {
     display: block;
