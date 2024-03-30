@@ -3,65 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Music Player</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #00ff00;
-        }
-
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .box {
-            background-color: #00ff00;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 400px;
-            width: 100%;
-        }
-
-        .controls {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .controls i {
-            font-size: 24px;
-            margin: 0 10px;
-            cursor: pointer;
-            color: #000;
-        }
-
-        .song-details {
-            text-align: center;
-        }
-
-        .song-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .time {
-            font-size: 14px;
-            color: #000;
-        }
-    </style>
+    <title>Music Player</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
@@ -76,10 +18,6 @@
             </div>
             <div class="song-details">
                 <div class="song-title">Song Title</div>
-                <input type="range" id="progress-bar" min="0" max="100" value="0" onchange="changeProgressBar()">
-                <div class="time">
-                    <span class="currentTime">0:00</span> / <span class="durationTime">0:00</span>
-                </div>
             </div>
         </div>
     </div>
@@ -97,26 +35,16 @@
 
         let currentSongIndex = 0;
         const song = document.getElementById('song');
-        const progressBar = document.getElementById('progress-bar');
-        const currentTimeDisplay = document.querySelector('.currentTime');
-        const durationTimeDisplay = document.querySelector('.durationTime');
 
         function loadSong() {
             song.src = songs[currentSongIndex];
             song.play();
-            updateDuration();
+            updateSongTitle();
         }
 
-        function updateDuration() {
-            song.addEventListener('loadedmetadata', () => {
-                durationTimeDisplay.textContent = formatTime(song.duration);
-            });
-        }
-
-        function formatTime(time) {
-            const minutes = Math.floor(time / 60);
-            const seconds = Math.floor(time % 60);
-            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        function updateSongTitle() {
+            const songTitle = document.querySelector('.song-title');
+            songTitle.textContent = songs[currentSongIndex].split('/').pop(); // Display only the filename as the song title
         }
 
         function playPause() {
@@ -140,17 +68,6 @@
             currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
             loadSong();
         }
-
-        function changeProgressBar() {
-            const progress = progressBar.value / 100;
-            song.currentTime = song.duration * progress;
-        }
-
-        setInterval(() => {
-            const progress = (song.currentTime / song.duration) * 100;
-            progressBar.value = progress;
-            currentTimeDisplay.textContent = formatTime(song.currentTime);
-        }, 1000);
 
         loadSong();
     </script>
