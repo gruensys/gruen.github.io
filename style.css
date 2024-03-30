@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-image: url('https://wallpapercave.com/uwp/uwp4318815.jpeg');
+    background-image: url('https://pixeldrain.com/api/file/5s4A58Pz');
     background-size: cover;
     background-position: center;
     width: 100vw;
@@ -27,7 +27,7 @@ body {
 
 .window {
     position: fixed;
-    background-color: #1e1e1e;
+    background-color: rgba(30, 30, 30, 0.8); 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
