@@ -1,37 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Music Player</title>
-    <link rel="stylesheet" href="player.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Music Player</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .controls i {
+            font-size: 24px;
+            margin: 0 10px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .song-details {
+            text-align: center;
+        }
+
+        .song-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .time {
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <audio id="song"></audio>
 
     <div class="container">  
-        <div class="box"></div>      
-        
-        <i class="fas fa-backward" onclick="previousSong()" id="previous-song"></i>
-        <i class="fas fa-play" onclick="playPause()" id="play-pause"></i>
-        <i class="fas fa-forward" onclick="nextSong()" id="next-song"></i>
-
-        <div class="song-title">Song Title</div>
-
-        <!-- Progress bar -->
-        <input 
-            type="range" 
-            id="progress-bar" 
-            min="0" 
-            max="100" 
-            value="0" 
-            onchange="changeProgressBar()"
-        />
-
-        <div class="currentTime">0:00</div>
-        <div class="durationTime">0:00</div>
+        <div class="box">
+            <div class="controls">
+                <i class="fas fa-backward" onclick="previousSong()"></i>
+                <i class="fas fa-play" onclick="playPause()" id="play-pause"></i>
+                <i class="fas fa-forward" onclick="nextSong()"></i>
+            </div>
+            <div class="song-details">
+                <div class="song-title">Song Title</div>
+                <input type="range" id="progress-bar" min="0" max="100" value="0" onchange="changeProgressBar()">
+                <div class="time">
+                    <span class="currentTime">0:00</span> / <span class="durationTime">0:00</span>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="player.js"></script>
     <script>
         const songs = [
             "./music/a-hero-of-the-80s-126684.mp3",
@@ -70,8 +121,12 @@
         function playPause() {
             if (song.paused) {
                 song.play();
+                document.getElementById('play-pause').classList.remove('fa-play');
+                document.getElementById('play-pause').classList.add('fa-pause');
             } else {
                 song.pause();
+                document.getElementById('play-pause').classList.remove('fa-pause');
+                document.getElementById('play-pause').classList.add('fa-play');
             }
         }
 
