@@ -11,7 +11,6 @@ function openApp(appName) {
     const windowElement = document.getElementById(appName + 'App');
     windowElement.classList.add('active');
 
-    // Calculate center position
     const centerX = (window.innerWidth - windowElement.offsetWidth) / 2;
     const centerY = (window.innerHeight - windowElement.offsetHeight) / 2;
     windowElement.style.left = centerX + 'px';
@@ -24,7 +23,7 @@ function closeApp(appName) {
     const windowElement = document.getElementById(appName + 'App');
     windowElement.classList.remove('active');
     
-    // Remove iframe and other contents
+ 
     const iframe = windowElement.querySelector('iframe');
     if (iframe) {
         iframe.parentNode.removeChild(iframe);
