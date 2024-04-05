@@ -24,7 +24,6 @@ function closeApp(appName) {
     const windowElement = document.getElementById(appName + 'App');
     windowElement.classList.remove('active');
     
-    // Remove iframe and other contents
     const iframe = windowElement.querySelector('iframe');
     if (iframe) {
         iframe.parentNode.removeChild(iframe);
