@@ -13,7 +13,7 @@ body {
 }
 
 .window {
-    position: relative;
+    position: absolute;
     background-color: rgba(0, 0, 0, 0.8);
     padding: 20px;
     border-radius: 10px;
@@ -23,7 +23,9 @@ body {
     z-index: 1;
     width: 45%;
     height: 45%;
-    margin: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .window.active {
@@ -41,21 +43,16 @@ body {
     left: 20px;
 }
 
-.window .close-btn,
-.window .minimize-btn,
-.window .maximize-btn {
-    position: absolute;
-    top: 10px;
-    cursor: pointer;
-    color: #fff;
+.window .close-btn {
+    right: 10px;
 }
 
 .window .minimize-btn {
-    left: 35px;
+    left: 10px;
 }
 
 .window .maximize-btn {
-    left: 60px;
+    left: 35px;
 }
 
 .app-title {
