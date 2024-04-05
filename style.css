@@ -23,8 +23,8 @@ body {
     z-index: 1;
     width: 45%;
     height: 45%;
-    left: 50%;
     top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 
@@ -44,15 +44,27 @@ body {
 }
 
 .window .close-btn {
+    position: absolute;
+    top: 10px;
     right: 10px;
+    cursor: pointer;
+    color: #fff;
 }
 
 .window .minimize-btn {
+    position: absolute;
+    top: 10px;
     left: 10px;
+    cursor: pointer;
+    color: #fff;
 }
 
 .window .maximize-btn {
+    position: absolute;
+    top: 10px;
     left: 35px;
+    cursor: pointer;
+    color: #fff;
 }
 
 .app-title {
