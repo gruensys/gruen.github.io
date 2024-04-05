@@ -2,11 +2,81 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-image: url('https://pixeldrain.com/api/file/5s4A58Pz');
-    background-size: cover; 
+    background-image: url('https://wallpapercave.com/wp/wp4989892.jpg');
+    background-size: cover;
     background-position: center;
-    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
+}
+
+.window {
+    position: relative;
+    background-color: #000000;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    display: none;
+    z-index: 1;
+    width: 45%;
+    height: 45%;
+    margin: auto; 
+}
+
+.window.active {
+    display: block;
+}
+
+.window.minimized {
+    display: none;
+}
+
+.window.maximized {
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    top: 20px;
+    left: 20px;
+}
+
+.window.minimized {
+    visibility: hidden;
+}
+
+.window.minimized.active {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    right: 20px; /* or adjust as needed */
+}
+
+.window .close-btn, .window .minimize-btn, .window .maximize-btn {
+    position: absolute;
+    top: 10px;
+    cursor: pointer;
+    color: #fff; 
+}
+
+.window .minimize-btn {
+    left: 10px;
+}
+
+.window .maximize-btn {
+    left: 35px;
+}
+
+.app-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: white;
+}
+
+iframe {
+    width: 100%;
+    height: 80%;
+    border: none;
 }
 
 #dock {
@@ -23,45 +93,4 @@ body {
     cursor: pointer;
     font-size: 24px;
     color: white;
-}
-
-.window {
-    position: fixed;
-    background-color: #000000; 
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    overflow: auto;
-    display: none;
-    z-index: 1;  
-    width: 45%;
-    height: 45%;
-    top: 27.5%;
-    left: 27.5%;
-}
-
-
-.window.active {
-    display: block;
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    color: #aaa;
-}
-
-.app-title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 20px;
-    color: white;
-}
-
-iframe {
-    width: 100%; 
-    height: 80%; 
-    border: none;
 }
