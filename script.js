@@ -11,6 +11,7 @@ function openApp(appName) {
     const windowElement = document.getElementById(appName + 'App');
     windowElement.classList.add('active');
 
+    // Calculate center position
     const centerX = (window.innerWidth - windowElement.offsetWidth) / 2;
     const centerY = (window.innerHeight - windowElement.offsetHeight) / 2;
     windowElement.style.left = centerX + 'px';
@@ -23,7 +24,7 @@ function closeApp(appName) {
     const windowElement = document.getElementById(appName + 'App');
     windowElement.classList.remove('active');
     
-  
+    // Remove iframe and other contents
     const iframe = windowElement.querySelector('iframe');
     if (iframe) {
         iframe.parentNode.removeChild(iframe);
@@ -39,10 +40,12 @@ function maximizeApp(appName) {
     const app = document.getElementById(appName + 'App');
     app.classList.toggle('maximized');
     if (app.classList.contains('maximized')) {
+        const centerX = (window.innerWidth - app.offsetWidth) / 2;
+        const centerY = (window.innerHeight - app.offsetHeight) / 2;
         app.style.width = "calc(100% - 40px)";
         app.style.height = "calc(100% - 40px)";
-        app.style.top = "20px";
-        app.style.left = "20px";
+        app.style.top = centerY + 'px';
+        app.style.left = centerX + 'px';
     } else {
         app.style.width = "";
         app.style.height = "";
