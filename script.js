@@ -3,19 +3,38 @@ function openApp(appName) {
     windowElement.classList.add('active');
     if (!windowElement.classList.contains('maximized')) {
         centerWindow(windowElement);
-    }
-    if (appName === 'game') {
-        const iframe = windowElement.querySelector('iframe');
-        iframe.src += '&autoplay=1'; // discord fucked up here
+        if (appName === 'game') {
+            const iframe = windowElement.querySelector('iframe');
+            iframe.src += '&autoplay=1'; // Autoplay YouTube video
+        }
     }
     $(windowElement).draggable();
+    if (appName !== 'game') {
+        switch (appName) {
+            case 'drawing':
+                windowElement.style.top = '20px';
+                windowElement.style.left = '20px';
+                break;
+            case 'calculator':
+                windowElement.style.top = '20px';
+                windowElement.style.right = '20px';
+                break;
+            case 'terminal':
+                windowElement.style.bottom = '20px';
+                windowElement.style.left = '20px';
+                break;
+            default: // 'game'
+                windowElement.style.bottom = '20px';
+                windowElement.style.right = '20px';
+        }
+    }
 }
 
 function closeApp(appName) {
     const windowElement = document.getElementById(appName + 'App');
     windowElement.classList.remove('active');
     const iframe = windowElement.querySelector('iframe');
-    iframe.src = iframe.src;
+    iframe.src = iframe.src; // Resetting iframe src to fix reloading issue
 }
 
 function minimizeApp(appName) {
@@ -30,14 +49,15 @@ function maximizeApp(appName) {
     if (!windowElement.classList.contains('maximized')) {
         windowElement.style.width = "100vw";
         windowElement.style.height = "100vh";
-        windowElement.style.top = "0";
-        windowElement.style.left = "0";
+        windowElement.style.zIndex = "2"; // Ensure it's above other apps
         windowElement.classList.add('maximized');
     } else {
         windowElement.style.width = "";
         windowElement.style.height = "";
         windowElement.style.top = "";
         windowElement.style.left = "";
+        windowElement.style.bottom = "";
+        windowElement.style.right = "";
         windowElement.classList.remove('maximized');
         if (!windowElement.classList.contains('minimized')) {
             centerWindow(windowElement);
