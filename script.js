@@ -23,27 +23,29 @@ function closeApp(appName) {
     const windowElement = document.getElementById(appName + 'App');
     windowElement.classList.remove('active');
     const iframe = windowElement.querySelector('iframe');
-    iframe.src = iframe.src;
+    iframe.src = iframe.src; // Resetting iframe src to fix reloading issue
 }
 
 function minimizeApp(appName) {
-    var app = document.getElementById(appName + 'App');
-    app.classList.add('minimized');
+    const windowElement = document.getElementById(appName + 'App');
+    if (windowElement.classList.contains('maximized')) {
+        windowElement.classList.add('minimized');
+    }
 }
 
 function maximizeApp(appName) {
-    const app = document.getElementById(appName + 'App');
-    if (!app.classList.contains('maximized')) {
-        app.style.width = "100vw";
-        app.style.height = "100vh";
-        app.style.top = "0";
-        app.style.left = "0";
-        app.classList.add('maximized');
+    const windowElement = document.getElementById(appName + 'App');
+    if (!windowElement.classList.contains('maximized')) {
+        windowElement.style.width = "100vw";
+        windowElement.style.height = "100vh";
+        windowElement.style.top = "0";
+        windowElement.style.left = "0";
+        windowElement.classList.add('maximized');
     } else {
-        app.style.width = "";
-        app.style.height = "";
-        app.style.top = "";
-        app.style.left = "";
-        app.classList.remove('maximized');
+        windowElement.style.width = "";
+        windowElement.style.height = "";
+        windowElement.style.top = "";
+        windowElement.style.left = "";
+        windowElement.classList.remove('maximized');
     }
 }
