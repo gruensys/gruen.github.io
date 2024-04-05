@@ -88,19 +88,35 @@
 <body>
 
 <div id="drawingApp" class="window">
-    <!-- Content for Drawing App -->
+    <span class="close-btn" onclick="closeApp('drawing')"><i class="fas fa-times"></i></span>
+    <span class="minimize-btn" onclick="minimizeApp('drawing')"><i class="far fa-window-minimize"></i></span>
+    <span class="maximize-btn" onclick="maximizeApp('drawing')"><i class="far fa-window-maximize"></i></span>
+    <div class="app-title">Drawing App</div>
+    <iframe src="./window/draw.html"></iframe>
 </div>
 
 <div id="calculatorApp" class="window">
-    <!-- Content for Calculator App -->
+    <span class="close-btn" onclick="closeApp('calculator')"><i class="fas fa-times"></i></span>
+    <span class="minimize-btn" onclick="minimizeApp('calculator')"><i class="far fa-window-minimize"></i></span>
+    <span class="maximize-btn" onclick="maximizeApp('calculator')"><i class="far fa-window-maximize"></i></span>
+    <div class="app-title">Calculator App</div>
+    <iframe src="./window/calc.html"></iframe>
 </div>
 
 <div id="gameApp" class="window">
-    <!-- Content for Game App -->
+    <span class="close-btn" onclick="closeApp('game')"><i class="fas fa-times"></i></span>
+    <span class="minimize-btn" onclick="minimizeApp('game')"><i class="far fa-window-minimize"></i></span>
+    <span class="maximize-btn" onclick="maximizeApp('game')"><i class="far fa-window-maximize"></i></span>
+    <div class="app-title">Game</div>
+    <iframe src="https://www.crazygames.com/embed/sandtrix"></iframe>
 </div>
 
 <div id="terminalApp" class="window">
-    <!-- Content for Terminal App -->
+    <span class="close-btn" onclick="closeApp('terminal')"><i class="fas fa-times"></i></span>
+    <span class="minimize-btn" onclick="minimizeApp('terminal')"><i class="far fa-window-minimize"></i></span>
+    <span class="maximize-btn" onclick="maximizeApp('terminal')"><i class="far fa-window-maximize"></i></span>
+    <div class="app-title">Terminal</div>
+    <iframe src="./window/term.html"></iframe>
 </div>
 
 <div id="dock">
@@ -109,7 +125,6 @@
     <div class="icon" onclick="openApp('game')"><i class="fas fa-gamepad"></i></div>
     <div class="icon" onclick="openApp('terminal')"><i class="fas fa-terminal"></i></div>
 </div>
-
 <script>
     function openApp(appName) {
         const windowElement = document.getElementById(appName + 'App');
@@ -140,6 +155,5 @@
         }
     }
 </script>
-
 </body>
 </html>
