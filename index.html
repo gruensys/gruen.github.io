@@ -43,6 +43,15 @@
             top: 20px;
             left: 20px;
         }
+        .window.minimized {
+            visibility: hidden;
+        }
+        .window.minimized.active {
+            display: block;
+            position: fixed;
+            bottom: 0;
+            right: 20px; 
+        }
         .window .close-btn, .window .minimize-btn, .window .maximize-btn {
             position: absolute;
             top: 10px;
@@ -123,36 +132,7 @@
     <div class="icon" onclick="openApp('terminal')"><i class="fas fa-terminal"></i></div>
 </div>
 
-<script>
-    function openApp(appName) {
-        const windowElement = document.getElementById(appName + 'App');
-        windowElement.classList.add('active');
-    }
-
-    function closeApp(appName) {
-        document.getElementById(appName + 'App').classList.remove('active');
-    }
-
-    function minimizeApp(appName) {
-        document.getElementById(appName + 'App').classList.add('minimized');
-    }
-
-    function maximizeApp(appName) {
-        const windowElement = document.getElementById(appName + 'App');
-        windowElement.classList.toggle('maximized');
-        if (windowElement.classList.contains('maximized')) {
-            windowElement.style.width = "calc(100% - 40px)";
-            windowElement.style.height = "calc(100% - 40px)";
-            windowElement.style.top = "20px";
-            windowElement.style.left = "20px";
-        } else {
-            windowElement.style.width = "";
-            windowElement.style.height = "";
-            windowElement.style.top = "";
-            windowElement.style.left = "";
-        }
-    }
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
