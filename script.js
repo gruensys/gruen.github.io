@@ -44,7 +44,6 @@ function maximizeApp(appName) {
         app.style.top = "0";
         app.style.left = "0";
     } else {
-        // Restore to original size and position
         const centerX = (window.innerWidth - app.offsetWidth) / 2;
         const centerY = (window.innerHeight - app.offsetHeight) / 2;
         app.style.width = "";
