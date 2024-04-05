@@ -17,7 +17,6 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
         }
         .window {
             position: relative;
@@ -30,7 +29,7 @@
             z-index: 1;
             width: 45%;
             height: 45%;
-            margin: auto;
+            margin: auto; 
         }
         .window.active {
             display: block;
@@ -70,14 +69,12 @@
         #dock {
             position: fixed;
             bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
+            left: 0;
+            width: 100%; 
+            text-align: center;  
         }
         .icon {
+            display: inline-block;
             margin: 0 10px;
             cursor: pointer;
             font-size: 24px;
@@ -125,6 +122,7 @@
     <div class="icon" onclick="openApp('game')"><i class="fas fa-gamepad"></i></div>
     <div class="icon" onclick="openApp('terminal')"><i class="fas fa-terminal"></i></div>
 </div>
+
 <script>
     function openApp(appName) {
         const windowElement = document.getElementById(appName + 'App');
@@ -155,5 +153,6 @@
         }
     }
 </script>
+
 </body>
 </html>
