@@ -11,7 +11,6 @@ function openApp(appName) {
     const windowElement = document.getElementById(appName + 'App');
     windowElement.classList.add('active');
 
-    
     const centerX = (window.innerWidth - windowElement.offsetWidth) / 2;
     const centerY = (window.innerHeight - windowElement.offsetHeight) / 2;
     windowElement.style.left = centerX + 'px';
@@ -24,7 +23,7 @@ function closeApp(appName) {
     const windowElement = document.getElementById(appName + 'App');
     windowElement.classList.remove('active');
     
-    
+  
     const iframe = windowElement.querySelector('iframe');
     if (iframe) {
         iframe.parentNode.removeChild(iframe);
@@ -32,23 +31,22 @@ function closeApp(appName) {
 }
 
 function minimizeApp(appName) {
-    var app = document.getElementById(appName + 'App');
-    app.style.display = "none";
+    const app = document.getElementById(appName + 'App');
+    app.classList.add('minimized');
 }
 
 function maximizeApp(appName) {
     const app = document.getElementById(appName + 'App');
-    if (!app.classList.contains('maximized')) {
-        app.style.width = "100vw"; // Set width to full viewport width
-        app.style.height = "100vh"; // Set height to full viewport height
-        app.style.top = "0"; // Align to top
-        app.style.left = "0"; // Align to left
-        app.classList.add('maximized');
+    app.classList.toggle('maximized');
+    if (app.classList.contains('maximized')) {
+        app.style.width = "calc(100% - 40px)";
+        app.style.height = "calc(100% - 40px)";
+        app.style.top = "20px";
+        app.style.left = "20px";
     } else {
-        app.style.width = ""; // Reset width
-        app.style.height = ""; // Reset height
-        app.style.top = ""; // Reset top position
-        app.style.left = ""; // Reset left position
-        app.classList.remove('maximized');
+        app.style.width = "";
+        app.style.height = "";
+        app.style.top = "";
+        app.style.left = "";
     }
 }
