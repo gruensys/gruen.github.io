@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>gruen</title>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gruen</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 
@@ -48,8 +48,37 @@
     <div class="app-title">Terminal</div>
     <iframe src="./window/term.html"></iframe>
 </div>
-<script src="script.js"></script>
+
+<script>
+    function openApp(appName) {
+        const windowElement = document.getElementById(appName + 'App');
+        windowElement.classList.add('active');
+    }
+
+    function closeApp(appName) {
+        document.getElementById(appName + 'App').classList.remove('active');
+    }
+
+    function minimizeApp(appName) {
+        document.getElementById(appName + 'App').classList.add('minimized');
+    }
+
+    function maximizeApp(appName) {
+        const windowElement = document.getElementById(appName + 'App');
+        windowElement.classList.toggle('maximized');
+        if (windowElement.classList.contains('maximized')) {
+            windowElement.style.width = "100%";
+            windowElement.style.height = "100%";
+            windowElement.style.top = "0";
+            windowElement.style.left = "0";
+        } else {
+            windowElement.style.width = "";
+            windowElement.style.height = "";
+            windowElement.style.top = "";
+            windowElement.style.left = "";
+        }
+    }
+</script>
 
 </body>
 </html>
-
