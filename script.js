@@ -2,32 +2,31 @@ function openApp(appName) {
     const windowElement = document.getElementById(appName + 'App');
     windowElement.classList.add('active');
     if (!windowElement.classList.contains('maximized')) {
-        centerWindow(windowElement);
         if (appName === 'game') {
             const iframe = windowElement.querySelector('iframe');
             iframe.src += '&autoplay=1'; // Autoplay YouTube video
+        } else {
+            switch (appName) {
+                case 'drawing':
+                    windowElement.style.top = '20px';
+                    windowElement.style.left = '20px';
+                    break;
+                case 'calculator':
+                    windowElement.style.top = '20px';
+                    windowElement.style.right = '20px';
+                    break;
+                case 'terminal':
+                    windowElement.style.bottom = '20px';
+                    windowElement.style.left = '20px';
+                    break;
+                default: // 'game'
+                    windowElement.style.bottom = '20px';
+                    windowElement.style.right = '20px';
+            }
         }
+        centerWindow(windowElement);
     }
     $(windowElement).draggable();
-    if (appName !== 'game') {
-        switch (appName) {
-            case 'drawing':
-                windowElement.style.top = '20px';
-                windowElement.style.left = '20px';
-                break;
-            case 'calculator':
-                windowElement.style.top = '20px';
-                windowElement.style.right = '20px';
-                break;
-            case 'terminal':
-                windowElement.style.bottom = '20px';
-                windowElement.style.left = '20px';
-                break;
-            default: // 'game'
-                windowElement.style.bottom = '20px';
-                windowElement.style.right = '20px';
-        }
-    }
 }
 
 function closeApp(appName) {
@@ -49,6 +48,10 @@ function maximizeApp(appName) {
     if (!windowElement.classList.contains('maximized')) {
         windowElement.style.width = "100vw";
         windowElement.style.height = "100vh";
+        windowElement.style.top = "0";
+        windowElement.style.left = "0";
+        windowElement.style.bottom = "0";
+        windowElement.style.right = "0";
         windowElement.style.zIndex = "2"; // Ensure it's above other apps
         windowElement.classList.add('maximized');
     } else {
