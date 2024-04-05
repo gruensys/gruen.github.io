@@ -1,21 +1,14 @@
-function resizeWallpaper() {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    document.body.style.backgroundSize = screenWidth + 'px ' + screenHeight + 'px';
+function centerWindow(windowElement) {
+    const centerX = (window.innerWidth - windowElement.offsetWidth) / 2;
+    const centerY = (window.innerHeight - windowElement.offsetHeight) / 2;
+    windowElement.style.left = centerX + 'px';
+    windowElement.style.top = centerY + 'px';
 }
-
-window.onload = resizeWallpaper;
-window.onresize = resizeWallpaper;
 
 function openApp(appName) {
     const windowElement = document.getElementById(appName + 'App');
     windowElement.classList.add('active');
-    if (!windowElement.classList.contains('maximized')) {
-        const centerX = (window.innerWidth - windowElement.offsetWidth) / 2;
-        const centerY = (window.innerHeight - windowElement.offsetHeight) / 2;
-        windowElement.style.left = centerX + 'px';
-        windowElement.style.top = centerY + 'px';
-    }
+    centerWindow(windowElement);
     $(windowElement).draggable();
 }
 
@@ -41,6 +34,7 @@ function maximizeApp(appName) {
         windowElement.style.top = "0";
         windowElement.style.left = "0";
         windowElement.classList.add('maximized');
+        centerWindow(windowElement);
     } else {
         windowElement.style.width = "";
         windowElement.style.height = "";
