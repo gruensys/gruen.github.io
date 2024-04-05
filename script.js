@@ -24,6 +24,7 @@ function closeApp(appName) {
     const windowElement = document.getElementById(appName + 'App');
     windowElement.classList.remove('active');
     
+    // Remove iframe and other contents
     const iframe = windowElement.querySelector('iframe');
     if (iframe) {
         iframe.parentNode.removeChild(iframe);
@@ -39,16 +40,17 @@ function maximizeApp(appName) {
     const app = document.getElementById(appName + 'App');
     app.classList.toggle('maximized');
     if (app.classList.contains('maximized')) {
+        app.style.width = "100%";
+        app.style.height = "100%";
+        app.style.top = "0";
+        app.style.left = "0";
+    } else {
+        // Restore to original size and position
         const centerX = (window.innerWidth - app.offsetWidth) / 2;
         const centerY = (window.innerHeight - app.offsetHeight) / 2;
-        app.style.width = "calc(100% - 40px)";
-        app.style.height = "calc(100% - 40px)";
-        app.style.top = centerY + 'px';
-        app.style.left = centerX + 'px';
-    } else {
         app.style.width = "";
         app.style.height = "";
-        app.style.top = "";
-        app.style.left = "";
+        app.style.top = centerY + 'px';
+        app.style.left = centerX + 'px';
     }
 }
