@@ -3,7 +3,7 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
     background-image: url('https://pixeldrain.com/api/file/5s4A58Pz');
-    background-size: cover;
+    background-size: cover; 
     background-position: center;
     width: 100vw;
     height: 100vh;
