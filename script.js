@@ -29,18 +29,19 @@ function minimizeApp(appName) {
 }
 
 function maximizeApp(appName) {
-    var app = document.getElementById(appName + 'App');
+    const app = document.getElementById(appName + 'App');
     if (!app.classList.contains('maximized')) {
-        app.style.width = "100%";
-        app.style.height = "100%";
-        app.style.top = "0";
-        app.style.left = "0";
+        app.style.width = "100vw"; // Set width to full viewport width
+        app.style.height = "100vh"; // Set height to full viewport height
+        app.style.top = "0"; // Align to top
+        app.style.left = "0"; // Align to left
         app.classList.add('maximized');
     } else {
-        app.style.width = "";
-        app.style.height = "";
-        app.style.top = "";
-        app.style.left = "";
+        app.style.width = ""; // Reset width
+        app.style.height = ""; // Reset height
+        app.style.top = ""; // Reset top position
+        app.style.left = ""; // Reset left position
         app.classList.remove('maximized');
     }
 }
+
