@@ -32,37 +32,18 @@ body {
     display: block;
 }
 
-.window.minimized {
-    display: none;
-}
-
 .window.maximized {
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
+    width: calc(100vw - 80px); /* 80px for the 40px margin on both sides */
+    height: calc(100vh - 80px); /* 80px for the 40px margin on top and bottom */
+    position: fixed;
+    top: 40px; /* 40px top margin */
+    left: 40px; /* 40px left margin */
 }
 
 .window .close-btn {
     position: absolute;
     top: 10px;
     right: 10px;
-    cursor: pointer;
-    color: #fff;
-}
-
-.window .minimize-btn {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    cursor: pointer;
-    color: #fff;
-}
-
-.window .maximize-btn {
-    position: absolute;
-    top: 10px;
-    left: 35px;
     cursor: pointer;
     color: #fff;
 }
@@ -93,6 +74,3 @@ iframe {
     cursor: pointer;
     font-size: 24px;
 }
-
-/* Additional styles from the original CSS */
-/* Add your additional styles here */
