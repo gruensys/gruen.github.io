@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Drawing App</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #000;
+        color: #fff;
+        overflow: hidden;
+        transition: background-color 0.3s;
+    }
+
+    #canvas-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: opacity 0.3s;
+    }
+
+    #canvas {
+        border: 4px solid #42f590;
+        background-color: #fff;
+        width: 100%;
+        height: 100%;
+        transition: border-color 0.3s;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background-color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s;
+    }
+
+    .control-btns {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        transition: margin-bottom 0.3s;
+    }
+
+    .control-btn {
+        background-color: transparent;
+        color: #42f590;
+        border: none;
+        cursor: pointer;
+        font-size: 24px;
+        margin-right: 10px;
+        height: 40px;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .control-btn:last-child {
+        margin-right: 0;
+    }
+
+    .control-btn:hover {
+        color: #4CAF50;
+    }
+
+    .control-btn:focus {
+        outline: none;
+    }
+
+    .pen-size-option {
+        cursor: pointer;
+        margin-right: 5px;
+        height: 30px;
+        padding: 5px 8px;
+        border: none;
+        border-radius: 5px;
+        background-color: #42f590;
+        color: #fff;
+        font-size: 14px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    #color-picker {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+        background-color: #000;
+        transition: background-color 0.3s;
+    }
+</style>
+</head>
+<body>
+<div id="canvas-container">
+    <canvas id="canvas"></canvas>
+</div>
+<div class="footer">
+    <div class="control-btns">
+        <button class="control-btn" onclick="clearCanvas()"><i class="fas fa-trash-alt"></i></button>
+        <button class="control-btn" onclick="downloadImage()"><i class="fas fa-download"></i></button>
+        <label for="import-image" class="control-btn"><i class="fas fa-folder-open"></i></label>
+        <input type="file" id="import-image" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+        <input type="color" id="color-picker" onchange="changePenColor()" value="#000000">
+        <select id="pen-size" onchange="setPenSize()" class="pen-size-option">
+            <option value="2">Small</option>
+            <option value="5" selected>Medium</option>
+            <option value="10">Large</option>
+        </select>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    resizeCanvas();
+
+    window.addEventListener('resize', resizeCanvas);
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight - 50;
+    }
+
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+    let penColor = '#000';
+    let penSize = 5;
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('touchstart', startDrawingTouch);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('touchmove', drawTouch);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('touchend', stopDrawing);
+
+    function startDrawing(e) {
+        isDrawing = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+    }
+
+    function startDrawingTouch(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        isDrawing = true;
+        [lastX, lastY] = [touch.clientX - canvas.offsetLeft, touch.clientY - canvas.offsetTop];
+    }
+
+    function draw(e) {
+        if (!isDrawing) return;
+        drawLine(e.offsetX, e.offsetY);
+    }
+
+    function drawTouch(e) {
+        if (!isDrawing) return;
+        e.preventDefault();
+        const touch = e.touches[0];
+        drawLine(touch.clientX - canvas.offsetLeft, touch.clientY - canvas.offsetTop);
+    }
+
+    function drawLine(x, y) {
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = penColor;
+        ctx.lineWidth = penSize;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+        [lastX, lastY] = [x, y];
+    }
+
+    function stopDrawing() {
+        isDrawing = false;
+    }
+
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Adding a small animation when clearing canvas
+        canvas.style.transition = 'opacity 0.5s';
+        canvas.style.opacity = 0.5;
+        setTimeout(() => {
+            canvas.style.opacity = 1;
+        }, 500);
+    }
+
+    function downloadImage() {
+        const downloadLink = document.createElement('a');
+        downloadLink.href = canvas.toDataURL('image/png');
+        downloadLink.download = 'drawing.png';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    }
+
+    function changePenColor() {
+        penColor = document.getElementById('color-picker').value;
+    }
+
+    function setPenSize() {
+        penSize = parseInt(document.getElementById('pen-size').value);
+    }
+
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    const scaleFactor = Math.min(canvas.width
+                    / img.width, canvas.height / img.height);
+                    const newWidth = img.width * scaleFactor;
+                    const newHeight = img.height * scaleFactor;
+                    const x = (canvas.width - newWidth) / 2;
+                    const y = (canvas.height - newHeight) / 2;
+                    ctx.drawImage(img, x, y, newWidth, newHeight);
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+</body>
+</html>
