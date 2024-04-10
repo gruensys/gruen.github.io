@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gruen</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <h6>just a simple website it might be borked on mobile devices</h6>
+  
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://wallpapercave.com/wp/wp4989892.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .window {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            overflow: auto;
+            display: none;
+            z-index: 1;
+            width: calc(100% - 200px);
+            height: calc(100% - 200px);
+            top: 100px;
+            left: 100px;
+        }
+
+        .window.active {
+            display: block;
+        }
+
+        .window.maximized {
+            width: calc(25% - 50px);
+            height: calc(25% - 50px);
+            position: fixed;
+            top: 100px;
+            left: 100px;
+        }
+
+        .window .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .window .toggle-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .app-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        #dock {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .icon {
+            display: inline-block;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="drawingApp" class="window">
+    <span class="close-btn" onclick="closeApp('drawing')"><i class="fas fa-times"></i></span>
+    <span class="toggle-btn" onclick="toggleSize('drawingApp')"><i class="fas fa-expand-arrows-alt"></i></span>
+    <div class="app-title">🎨 Drawing </div>
+    <iframe src="./window/draw.html"></iframe>
+</div>
+
+<div id="calculatorApp" class="window">
+    <span class="close-btn" onclick="closeApp('calculator')"><i class="fas fa-times"></i></span>
+    <span class="toggle-btn" onclick="toggleSize('calculatorApp')"><i class="fas fa-expand-arrows-alt"></i></span>
+    <div class="app-title">Calc</div>
+    <iframe src="./window/calc.html"></iframe>
+</div>
+
+<div id="gameApp" class="window">
+    <span class="close-btn" onclick="closeApp('game')"><i class="fas fa-times"></i></span>
+    <span class="toggle-btn" onclick="toggleSize('gameApp')"><i class="fas fa-expand-arrows-alt"></i></span>
+    <div class="app-title">Sandtrix</div>
+    <iframe src="https://www.crazygames.com/embed/sandtrix"></iframe>
+</div>
+
+<div id="youtubeApp" class="window">
+    <span class="close-btn" onclick="closeApp('youtube')"><i class="fas fa-times"></i></span>
+    <span class="toggle-btn" onclick="toggleSize('youtubeApp')"><i class="fas fa-expand-arrows-alt"></i></span>
+    <div class="app-title">Rickroll</div>
+    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"></iframe>
+</div>
+
+<div id="dock">
+    <div class="icon" onclick="openApp('drawing')"><i class="fas fa-paint-brush"></i></div>
+    <div class="icon" onclick="openApp('calculator')"><i class="fas fa-calculator"></i></div>
+    <div class="icon" onclick="openApp('game')"><i class="fas fa-gamepad"></i></div>
+    <div class="icon" onclick="openApp('youtube')"><i class="fab fa-youtube"></i></div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    function centerWindow(windowElement) {
+        const centerX = (window.innerWidth - windowElement.offsetWidth) / 2;
+        const centerY = (window.innerHeight - windowElement.offsetHeight) / 2;
+        windowElement.style.left = Math.max(centerX, 100) + 'px';
+        windowElement.style.top = Math.max(centerY, 100) + 'px';
+    }
+
+    window.addEventListener('resize', function () {
+        const activeWindows = document.querySelectorAll('.window.active');
+        activeWindows.forEach(function (windowElement) {
+            centerWindow(windowElement);
+        });
+    });
+
+    function openApp(appName) {
+        const windowElement = document.getElementById(appName + 'App');
+        windowElement.classList.add('active');
+        if (!windowElement.classList.contains('maximized')) {
+            centerWindow(windowElement);
+        }
+    }
+
+    function toggleSize(appId) {
+        const windowElement = document.getElementById(appId);
+        windowElement.classList.toggle('maximized');
+        if (!windowElement.classList.contains('maximized')) {
+            centerWindow(windowElement);
+        }
+    }
+
+    function closeApp(appName) {
+        const windowElement = document.getElementById(appName + 'App');
+        windowElement.classList.remove('active');
+    }
+
+    
+    document.querySelectorAll('.icon').forEach(function (icon) {
+        icon.addEventListener('click', function () {
+            const appName = this.dataset.appName;
+            openApp(appName);
+        });
+    });
+</script>
+
+</body>
+</html>
