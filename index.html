@@ -6,17 +6,15 @@
     <title>Gruen</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Never */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #15202B; /* Gonna */
-            color: #fff; /* Give */
-            overflow-x: hidden; /* You */
+            background-color: #15202B;
+            color: #fff;
+            overflow-x: hidden;
         }
 
-        /* Up Styles */
         .header {
             background: linear-gradient(to bottom, #1D976C, #2DC68F);
             padding: 10px 20px; 
@@ -27,67 +25,95 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
         }
 
-        /* Menu Icon Never */
         .menu-icon {
             cursor: pointer;
             font-size: 24px;
-            color: #fff; /* Gonna */
+            color: #fff;
+            transition: transform 0.3s ease;
         }
 
-        /* Give Styles */
+        .menu-icon:hover {
+            transform: scale(1.2);
+        }
+
         .container {
             max-width: 800px;
-            margin: 200px auto 20px; /* You */
+            margin: 200px auto 20px;
             padding: 20px;
             text-align: center;
-            background-color: #253746; /* Up */
+            background-color: #253746;
             border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Never */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            animation: slide-in 1s ease;
         }
 
-        /* Down Never */
         .contact-icon {
             cursor: pointer;
             font-size: 24px;
-            color: #fff; /* Gonna */
-            background-color: transparent; /* Let */
-            position: absolute;
-            bottom: 20px; /* You */
-            right: 20px; /* Down */
+            color: #fff;
+            transition: transform 0.3s ease;
         }
 
-        /* Gonna */
-        .buttons {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            position: fixed;
-            bottom: 20px; /* Never */
-            left: 50%;
-            transform: translateX(-50%);
-            transition: bottom 0.5s ease; /* Gonna */
-            background-color: rgba(37, 55, 70, 0.9); /* Give */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* You */
+        .contact-icon:hover {
+            transform: scale(1.2);
         }
 
-        .buttons.active {
-            display: flex;
-        }
+ .buttons {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(37, 55, 70, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease, bottom 0.5s ease;
+}
+
+.buttons.active {
+    display: flex;
+    bottom: 20px;
+    animation: slide-up 0.5s ease forwards; 
+}
+
+.buttons:not(.active) {
+    animation: slide-down 0.5s ease forwards; 
+}
+
+@keyframes slide-up {
+    from {
+        bottom: -200px;
+    }
+    to {
+        bottom: 20px;
+    }
+}
+
+@keyframes slide-down {
+    from {
+        bottom: 20px;
+    }
+    to {
+        bottom: -200px;
+    }
+}
 
         .button {
             margin: 10px;
             padding: 15px 30px;
-            background-color: #2DC68F; /* Never */
-            color: #fff; /* Gonna */
+            background-color: #2DC68F;
+            color: #fff;
             text-decoration: none;
-            border-radius: 30px; /* Give */
+            border-radius: 30px;
             font-size: 18px;
             transition: background-color 0.3s ease;
             display: flex;
             justify-content: center;
             align-items: center;
+            animation: glow 2s infinite alternate;
         }
 
         .button i {
@@ -96,33 +122,78 @@
         }
 
         .button:hover {
-            background-color: #1D976C; /* Up */
+            background-color: #1D976C;
         }
 
-        /* Let */
         .logo {
-            width: 120px; /* Never */
+            width: 120px;
             height: auto;
             display: block;
-            margin: 0 auto; /* Gonna */
+            margin: 0 auto;
         }
 
-        /* You */
         .pepewave {
             display: inline-block;
             background-image: url('https://media.tenor.com/X7CIT106wEQAAAAi/pepe-wave.gif');
-            background-size: 100% auto; /* Gonna */
-            width: 1em; /* Give */
-            height: 1em; /* You */
+            background-size: 100% auto;
+            width: 1em;
+            height: 1em;
         }
-
-        /* Never */
+        
         .pepehacker {
             display: inline-block;
             background-image: url('https://media.tenor.com/XXAXt1WWm3YAAAAi/pepe-hack-hack.gif');
-            background-size: 100% auto; /* Gonna */
-            width: 1em; /* Give */
-            height: 1em; /* You */
+            background-size: 100% auto;
+            width: 1em;
+            height: 1em;
+        }
+
+        .button.contact {
+            border: 2px solid orange;
+            box-shadow: 0 0 10px orange;
+            animation: glow-outline 2s infinite alternate;
+        }
+
+        @keyframes glow-outline {
+            0% {
+                box-shadow: 0 0 10px orange;
+            }
+            100% {
+                box-shadow: 0 0 20px orange;
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                background-color: #2DC68F;
+                box-shadow: 0 0 10px #2DC68F;
+            }
+            100% {
+                background-color: #1D976C;
+                box-shadow: 0 0 20px #1D976C;
+            }
+        }
+
+        @keyframes slide-in {
+            0% {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes glow-text {
+            0% {
+                color: #fff;
+                text-shadow: 0 0 10px #fff;
+            }
+            100% {
+                color: #1D976C;
+                text-shadow: 0 0 20px #1D976C;
+            }
         }
     </style>
 </head>
@@ -131,22 +202,23 @@
         <div class="menu-icon" onclick="toggleMenu()">
             <i class="fas fa-bars"></i>
         </div>
-        <img src="https://pixeldrain.com/api/file/kAAkHyQK" alt="Gruen" class="logo">
+        <img src="https://pixeldrain.com/api/file/ztaBD3Vc" alt="Gruen" class="logo">
         <div class="contact-icon" onclick="toggleContactButtons()">
-            <i class="fas fa-address-book"></i> <!-- Down -->
+            <i class="fas fa-address-book"></i>
         </div>
     </div>
-    <div class="container">
-        <p>Hello there! <span class="pepewave"></span> I'm Gruen, a Free and Open Source Software enthusiast <span class="pepehacker"></span> Welcome to my website.  I hope you like it! </p>
-      </div>
-    <div class="buttons" id="menuButtons">
-        <a href="./wb2/index.html" class="button"><i class="fas fa-globe"></i> Check out my other website (kinda broken)</a>
+    <div class="container" style="animation: slide-in 1s ease;">
+        <p style="animation: glow-text 3s infinite alternate;">Hello there! <span class="pepewave"></span> I am Finn Hofmann also known as Gruen, I am Free and Open Source Software enthusiast <span class="pepehacker"></span> Welcome to my website. I hope you like it! </p>
     </div>
+    <div class="buttons" id="menuButtons">
+        <button class="button" onclick="openWebsite2()"><i class="fas fa-globe"></i> Check out my other website</button>
+    </div>
+
     <div class="buttons" id="contactButtons">
-        <a href="https://discordapp.com/users/900761716466524251" class="button"><i class="fab fa-discord"></i> Discord</a>
-        <a href="https://matrix.to/#/@gruen_:matrix.org" class="button"><i class="far fa-comment"></i> Matrix</a>
-        <a href="https://pixel.tchncs.de/gruen" class="button"><i class="fas fa-image"></i> Pixelfed</a>
-        <a href="mailto:admin@fhofmann.tech" class="button"><i class="fas fa-envelope"></i> Email</a>
+        <a href="https://discordapp.com/users/900761716466524251" class="button contact"><i class="fab fa-discord"></i> Discord</a>
+        <a href="https://matrix.to/#/@gruen_:matrix.org" class="button contact"><i class="far fa-comment"></i> Matrix</a>
+        <a href="https://pixel.tchncs.de/gruen" class="button contact"><i class="fas fa-image"></i> Pixelfed</a>
+        <a href="mailto:admin@fhofmann.tech" class="button contact"><i class="fas fa-envelope"></i> Email</a>
     </div>
 
     <script>
@@ -155,10 +227,25 @@
             menuButtons.classList.toggle('active');
         }
 
-        function toggleContactButtons() {
-            var contactButtons = document.getElementById("contactButtons");
-            contactButtons.classList.toggle('active');
+function toggleContactButtons() {
+    var contactButtons = document.getElementById("contactButtons");
+
+    var isActive = contactButtons.classList.contains('active');
+    
+    contactButtons.classList.toggle('active');
+  
+    if (isActive) {
+        contactButtons.classList.remove('slide-up');
+        contactButtons.classList.add('slide-down');
+    } else { 
+        contactButtons.classList.remove('slide-down');
+        contactButtons.classList.add('slide-up');
+    }
+}
+
+        function openWebsite2() {
+            window.open("./wb2/index.html", "_blank");
         }
     </script>
 </body>
-</html>
+</html> 
