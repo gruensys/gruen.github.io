@@ -4,248 +4,283 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gruen</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        @font-face {
+            font-family: 'NerdFont';
+            src: url('./fonts/SymbolsNerdFont-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --light-bg: #f0f8f5;
+            --light-text: #333333;
+            --light-accent: #a8d5ba;
+            --light-secondary: #d1e9d5;
+            --light-icon: #000000;
+
+            --dark-bg: #121212;
+            --dark-text: #f0f0f0;
+            --dark-accent: #a8d5ba;
+            --dark-secondary: #4f4f4f;
+            --dark-icon: #ffffff;
+        }
+
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #15202B;
-            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-bg);
+            color: var(--light-text);
+            transition: background 0.3s, color 0.3s;
             overflow-x: hidden;
         }
 
+        body.dark-mode {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
         .header {
-            background: linear-gradient(to bottom, #1D976C, #2DC68F);
-            padding: 10px 20px; 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
-        }
-
-        .menu-icon {
-            cursor: pointer;
-            font-size: 24px;
-            color: #fff;
-            transition: transform 0.3s ease;
-        }
-
-        .menu-icon:hover {
-            transform: scale(1.2);
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 200px auto 20px;
-            padding: 20px;
+            background: linear-gradient(135deg, var(--light-accent), var(--light-secondary));
+            color: var(--light-text);
+            padding: 40px 0;
             text-align: center;
-            background-color: #253746;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            animation: slide-in 1s ease;
-        }
-
-        .contact-icon {
-            cursor: pointer;
-            font-size: 24px;
-            color: #fff;
-            transition: transform 0.3s ease;
-        }
-
-        .contact-icon:hover {
-            transform: scale(1.2);
-        }
-
- .buttons {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    bottom: -200px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(37, 55, 70, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: opacity 0.3s ease, bottom 0.5s ease;
-}
-
-.buttons.active {
-    display: flex;
-    bottom: 20px;
-    animation: slide-up 0.5s ease forwards; 
-}
-
-.buttons:not(.active) {
-    animation: slide-down 0.5s ease forwards; 
-}
-
-@keyframes slide-up {
-    from {
-        bottom: -200px;
-    }
-    to {
-        bottom: 20px;
-    }
-}
-
-@keyframes slide-down {
-    from {
-        bottom: 20px;
-    }
-    to {
-        bottom: -200px;
-    }
-}
-
-        .button {
-            margin: 10px;
-            padding: 15px 30px;
-            background-color: #2DC68F;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 30px;
-            font-size: 18px;
-            transition: background-color 0.3s ease;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+            transition: background 0.3s;
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: glow 2s infinite alternate;
         }
 
-        .button i {
-            margin-right: 10px;
-            font-size: 20px;
+        body.dark-mode .header {
+            background: linear-gradient(135deg, var(--dark-accent), var(--dark-secondary));
         }
 
-        .button:hover {
-            background-color: #1D976C;
+        .title {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            font-size: 3rem;
+            font-weight: 600;
+            animation: fadeIn 2s ease-in-out;
         }
 
-        .logo {
-            width: 120px;
+        .title img {
+            width: 50px;
             height: auto;
-            display: block;
-            margin: 0 auto;
+            margin-right: 10px;
         }
 
-        .pepewave {
-            display: inline-block;
-            background-image: url('https://media.tenor.com/X7CIT106wEQAAAAi/pepe-wave.gif');
-            background-size: 100% auto;
-            width: 1em;
-            height: 1em;
-        }
-        
-        .pepehacker {
-            display: inline-block;
-            background-image: url('https://media.tenor.com/XXAXt1WWm3YAAAAi/pepe-hack-hack.gif');
-            background-size: 100% auto;
-            width: 1em;
-            height: 1em;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .button.contact {
-            border: 2px solid orange;
-            box-shadow: 0 0 10px orange;
-            animation: glow-outline 2s infinite alternate;
+        main {
+            padding: 20px;
         }
 
-        @keyframes glow-outline {
-            0% {
-                box-shadow: 0 0 10px orange;
-            }
-            100% {
-                box-shadow: 0 0 20px orange;
-            }
+        .section {
+            margin-bottom: 40px;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s, box-shadow 0.3s;
+            background: var(--light-bg);
         }
 
-        @keyframes glow {
-            0% {
-                background-color: #2DC68F;
-                box-shadow: 0 0 10px #2DC68F;
-            }
-            100% {
-                background-color: #1D976C;
-                box-shadow: 0 0 20px #1D976C;
-            }
+        body.dark-mode .section {
+            background: var(--dark-bg);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
-        @keyframes slide-in {
-            0% {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        .section h2 {
+            color: var(--light-accent);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
         }
 
-        @keyframes glow-text {
-            0% {
-                color: #fff;
-                text-shadow: 0 0 10px #fff;
-            }
-            100% {
-                color: #1D976C;
-                text-shadow: 0 0 20px #1D976C;
-            }
+        body.dark-mode .section h2 {
+            color: var(--dark-accent);
+        }
+
+        .section p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--light-text);
+        }
+
+        body.dark-mode .section p {
+            color: var(--dark-text);
+        }
+
+        .gif-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin: 0 10px;
+            transition: transform 0.3s;
+        }
+
+        .gif-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .contact-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .contact-buttons a {
+            background: var(--light-accent);
+            color: var(--light-icon);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-family: 'NerdFont';
+        }
+
+        body.dark-mode .contact-buttons a {
+            background: var(--dark-accent);
+            color: var(--dark-icon);
+        }
+
+        .contact-buttons a:hover {
+            background: #88c1a3;
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--light-accent), var(--light-secondary));
+            color: var(--light-text);
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            transition: background 0.3s;
+            clear: both;
+        }
+
+        body.dark-mode footer {
+            background: linear-gradient(135deg, var(--dark-accent), var(--dark-secondary));
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--light-accent);
+            color: var(--light-icon);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            transition: background 0.3s, color 0.3s;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            font-family: 'NerdFont';
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: var(--dark-accent);
+            color: var(--dark-icon);
+        }
+
+        .dark-mode-toggle:hover {
+            background: #88c1a3;
+        }
+
+        .dark-mode-toggle i {
+            font-size: 1.5rem;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="menu-icon" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
+    <header class="header">
+        <div class="title">
+            <img src="https://media.tenor.com/AKHD2FORvWkAAAAi/gr%C3%BCn-green.gif" alt="Gruen Icon">
+            Gruen
         </div>
-        <img src="./logo.png" alt="Gruen" class="logo">
-        <div class="contact-icon" onclick="toggleContactButtons()">
-            <i class="fas fa-address-book"></i>
-        </div>
-    </div>
-    <div class="container" style="animation: slide-in 1s ease;">
-        <p style="animation: glow-text 3s infinite alternate;">Hello there! <span class="pepewave"></span> I am Gruen, I am a Free and Open Source Software enthusiast <span class="pepehacker"></span> Welcome to my website. I hope you like it! </p>
-    </div>
-    <div class="buttons" id="menuButtons">
-        <button class="button" onclick="openWebsite2()"><i class="fas fa-globe"></i> Check out my other website</button>
-    </div>
+    </header>
 
-    <div class="buttons" id="contactButtons">
-        <a href="https://discordapp.com/users/900761716466524251" class="button contact"><i class="fab fa-discord"></i> Discord</a>
-        <a href="https://matrix.to/#/@gruen_:matrix.org" class="button contact"><i class="far fa-comment"></i> Matrix</a>
-        <a href="https://pixel.tchncs.de/gruen" class="button contact"><i class="fas fa-image"></i> Pixelfed</a>
-        <a href="mailto:admin@fhofmann.tech" class="button contact"><i class="fas fa-envelope"></i> Email</a>
-    </div>
+    <main>
+        <section id="about" class="section">
+            <div class="content">
+                <h2>About Me</h2>
+                <p>Hello there! I am Gruen, a Free and Open Source Software enthusiast. Welcome to my website. I hope you like it!</p>
+                <div class="gif-container">
+                    <img src="https://media.tenor.com/zR7DSqJTks0AAAAi/linux-tux.gif" alt="Tux Linux GIF">
+                </div>
+            </div>
+        </section>
+        
+        <section id="projects" class="section">
+            <div class="content">
+                <h2>Projects</h2>
+                <p>Check out my old website <a href="https://gruensys.github.io/wb2/index.html">here</a>.</p>
+            </div>
+        </section>
+        
+        <section id="contact" class="section">
+            <div class="content">
+                <h2>Contact</h2>
+                <div class="gif-container">
+                    <img src="https://media.tenor.com/PBG8IAgoXvQAAAAi/hello-waving-frog.gif" alt="Waving Frog GIF">
+                </div>
+                <div class="contact-buttons">
+                    <a href="mailto:admin@fhofmann.tech">&#xf0e0;</a>
+                    <a href="https://mastodon.social/@ggruen" target="_blank" rel="noopener noreferrer"></a>
+                    <a href="https://discordapp.com/users/900761716466524251"></a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; 2024 Gruen. All rights reserved.</p>
+    </footer>
+
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas">&#xf186;</i>
+    </button>
 
     <script>
-        function toggleMenu() {
-            var menuButtons = document.getElementById("menuButtons");
-            menuButtons.classList.toggle('active');
+        function toggleDarkMode() {
+            const body = document.body;
+            const toggleButton = document.querySelector('.dark-mode-toggle i');
+            body.classList.toggle("dark-mode");
+            const currentMode = body.classList.contains("dark-mode") ? "dark" : "light";
+            localStorage.setItem("theme", currentMode);
+
+            if (currentMode === "dark") {
+                toggleButton.innerHTML = '&#xf185;';
+            } else {
+                toggleButton.innerHTML = '&#xf186;';
+            }
         }
 
-function toggleContactButtons() {
-    var contactButtons = document.getElementById("contactButtons");
-
-    var isActive = contactButtons.classList.contains('active');
-    
-    contactButtons.classList.toggle('active');
-  
-    if (isActive) {
-        contactButtons.classList.remove('slide-up');
-        contactButtons.classList.add('slide-down');
-    } else { 
-        contactButtons.classList.remove('slide-down');
-        contactButtons.classList.add('slide-up');
-    }
-}
-
-        function openWebsite2() {
-            window.open("./wb2/index.html", "_blank");
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+            document.body.classList.add("dark-mode");
+            document.querySelector('.dark-mode-toggle i').innerHTML = '&#xf185;';
         }
     </script>
 </body>
-</html> 
+</html>
